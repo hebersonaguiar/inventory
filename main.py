@@ -14,16 +14,16 @@ app.secret_key = "flash message"
 def test():
     try:
         print("Passei pelo try")
-        cur = connection.get_connection()
-        cur.execute("select * from test")
-        data = cur.fetchall()
+        cursor = connection.get_connection()
+        cursor.execute("select * from test")
+        data = cursor.fetchall()
 
         return jsonify({'test': 'true'}), 200
     except Exception as error:
         print("Passei pela ececao do try")
         return jsonify(error), 400
     finally:
-        cur.close
+        cursor.close
         
 if __name__ == '__main__':
 	app.run(debug=True, host='0.0.0.0', port='5000')
