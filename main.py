@@ -13,12 +13,14 @@ app.secret_key = "flash message"
 @app.route('/test', methods=['GET'])
 def test():
     try:
+        print("Passei pelo try")
         cur = connection.get_connection()
         cur.execute("select * from test")
         data = cur.fetchall()
 
         return jsonify({'test': 'true'}), 200
     except Exception as error:
+        print("Passei pela ececao do try")
         return jsonify(error), 400
     finally:
         cur.close
