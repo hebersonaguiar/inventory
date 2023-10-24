@@ -1,10 +1,6 @@
-import json, re, csv
-from flask import Flask, render_template, request, redirect, url_for, flash, stream_with_context, g, session
+from flask import Flask
 from flask_restful import Resource, Api
 from flask_jsonpify import jsonify
-from json import dumps
-from datetime import datetime
-from io import StringIO
 from flask_cors import CORS
 from repositories import connection
 
