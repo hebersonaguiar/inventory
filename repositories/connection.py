@@ -10,8 +10,8 @@ def get_connection():
 
     mysql = MySQL(main.app)
 
-    cur = mysql.connection.cursor()
+    # cur = mysql.connection.cursor()
     
-    return cur
+    return mysql
 
 
