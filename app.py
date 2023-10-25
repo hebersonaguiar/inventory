@@ -3,6 +3,7 @@ from flask_restful import Resource, Api
 from flask_cors import CORS
 from flask_jsonpify import jsonify
 from repositories import connection
+import json
 
 application = Flask(__name__)
 api = Api(application)
@@ -11,14 +12,15 @@ application.secret_key = "flash message"
 
 mysql = connection.get_connection(application)
 
-@application.route('/test', methods=['GET'])
-def test():
+@application.route('/hosts', methods=['GET'])
+def hosts():
     try:
         cur = mysql.connection.cursor()
-        cur.execute("select * from test")
+        cur.execute("SELECT * FROM host_info")
         data = cur.fetchall()
 
-        return jsonify({'test': 'true'}), 200
+        # return jsonify({'test': 'true'}), 200
+        return json.dumps(data)
     except Exception as error:
         return jsonify(error), 400
     finally:
