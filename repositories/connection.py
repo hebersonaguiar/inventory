@@ -1,14 +1,14 @@
 from flask_mysqldb import MySQL
-import main
+import app
 
 def get_connection():
     print("Connections")
-    main.app.config['MYSQL_HOST'] = "mysql"
-    main.app.config['MYSQL_USER'] = "root"
-    main.app.config['MYSQL_PASSWORD'] = "my-secret-pw"
-    main.app.config['MYSQL_DB'] = "inventory"
+    app.config['MYSQL_HOST'] = "mysql"
+    app.config['MYSQL_USER'] = "root"
+    app.config['MYSQL_PASSWORD'] = "my-secret-pw"
+    app.config['MYSQL_DB'] = "inventory"
 
-    mysql = MySQL(main.app)
+    mysql = MySQL(app)
 
     # cur = mysql.connection.cursor()
     
