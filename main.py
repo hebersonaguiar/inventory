@@ -4,6 +4,8 @@ import app
 
 mysql = connection.get_connection(app.app)
 
+app = app.app
+
 @app.route('/test', methods=['GET'])
 def test():
     try:
