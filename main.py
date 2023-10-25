@@ -1,5 +1,3 @@
-from flask_jsonpify import jsonify
-from repositories import connection
 import app
 
 app = app.application
