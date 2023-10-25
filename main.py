@@ -5,7 +5,7 @@ import app
 
 mysql = connection.get_connection()
 
-@app.route('/test', methods=['GET'])
+@app.app.route('/test', methods=['GET'])
 def test():
     try:
         print("Passei pelo try")
