@@ -1,15 +1,8 @@
 from flask_jsonpify import jsonify
 from repositories import connection
-from flask import Flask, render_template, request, redirect, url_for, flash, stream_with_context, g, session
-from flask_restful import Resource, Api
-from flask_cors import CORS
+import app
 
-app = Flask(__name__)
-api = Api(app)
-CORS(app, resources={r"/*": {"origins": "*"}})
-app.secret_key = "flash message"
-
-mysql = connection.get_connection(app)
+mysql = connection.get_connection(app.app)
 
 @app.route('/test', methods=['GET'])
 def test():

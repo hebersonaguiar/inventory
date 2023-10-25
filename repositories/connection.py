@@ -8,7 +8,5 @@ def get_connection(app):
     app.config['MYSQL_DB'] = "inventory"
 
     mysql = MySQL(app)
-
-    # cur = mysql.connection.cursor()
     
     return mysql
