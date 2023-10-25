@@ -16,7 +16,7 @@ mysql = connection.get_connection(application)
 def hosts():
     try:
         cur = mysql.connection.cursor()
-        cur.execute("SELECT * FROM host_info")
+        cur.execute("SELECT id, hostname, ip, architecture, plataform, processor, so, distribution, mem_total, mem_free, up_time, mac_address FROM host_info")
         data = cur.fetchall()
 
         payload = []
