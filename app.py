@@ -19,8 +19,30 @@ def hosts():
         cur.execute("SELECT * FROM host_info")
         data = cur.fetchall()
 
+        payload = []
+        content = []
+
+        for result in data:
+            content = {
+                'id': result[0],
+                'hostname': result[1],
+                'ip': result[2],
+                'architecture': result[3],
+                'plataform': result[4],
+                'processor': result[5],
+                'so': result[6],
+                'distribution': result[7],
+                'mem_total': result[8],
+                'mem_free': result[9],
+                'up_time': result[10],
+                'mac_address': result[11]
+            }
+            
+            payload.append(content)
+            content = {}
+
         # return jsonify({'test': 'true'}), 200
-        return jsonify(data), 200
+        return jsonify(payload), 200
     except Exception as error:
         return jsonify(error), 400
     finally:
