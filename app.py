@@ -20,7 +20,7 @@ def hosts():
         data = cur.fetchall()
 
         # return jsonify({'test': 'true'}), 200
-        return json.dumps(data)
+        return jsonify(data), 200
     except Exception as error:
         return jsonify(error), 400
     finally:
