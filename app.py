@@ -6,3 +6,20 @@ application = Flask(__name__)
 api = Api(application)
 CORS(application, resources={r"/*": {"origins": "*"}})
 application.secret_key = "flash message"
+
+
+mysql = connection.get_connection(application)
+
+@application.route('/test', methods=['GET'])
+def test():
+    try:
+        cur = mysql.connection.cursor()
+        cur.execute("select * from test")
+        data = cur.fetchall()
+
+        return jsonify({'test': 'true'}), 200
+    except Exception as error:
+        return jsonify(error), 400
+    finally:
+        cur.close
+        
