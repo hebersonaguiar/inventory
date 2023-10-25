@@ -2,9 +2,8 @@ from flask_jsonpify import jsonify
 from repositories import connection
 import app
 
-mysql = connection.get_connection(app.app)
-
-app = app.app
+app = app.application
+mysql = connection.get_connection(app)
 
 @app.route('/test', methods=['GET'])
 def test():

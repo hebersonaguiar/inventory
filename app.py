@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash, str
 from flask_restful import Resource, Api
 from flask_cors import CORS
 
-app = Flask(__name__)
-api = Api(app)
-CORS(app, resources={r"/*": {"origins": "*"}})
-app.secret_key = "flash message"
+application = Flask(__name__)
+api = Api(application)
+CORS(application, resources={r"/*": {"origins": "*"}})
+application.secret_key = "flash message"
