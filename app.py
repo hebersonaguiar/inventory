@@ -3,7 +3,7 @@ from flask_restful import Resource, Api
 from flask_cors import CORS
 from flask_jsonpify import jsonify
 from repositories import connection
-import json
+import json, datetime
 
 application = Flask(__name__)
 api = Api(application)
@@ -16,7 +16,7 @@ mysql = connection.get_connection(application)
 def hosts():
     try:
         cur = mysql.connection.cursor()
-        cur.execute("SELECT id, hostname, ip, architecture, plataform, processor, so, distribution, mem_total, mem_free, up_time, mac_address FROM host")
+        cur.execute("SELECT id, hostname, ip, architecture, plataform, processor, so, distribution, mem_total, mem_free, up_time, mac_address FROM hosts")
         data = cur.fetchall()
 
         payload = []
@@ -47,4 +47,33 @@ def hosts():
         return jsonify(error), 400
     finally:
         cur.close
-        
+
+@application.route('/hosts', methods=['POST'])
+def add_host():
+    try:
+
+        hostname = str(request.json.get('hostname', None))
+        ip = str(request.json.get('ip', None))
+        architecture = str(request.json.get('architecture', None))
+        plataform = str(request.json.get('plataform', None))
+        processor = str(request.json.get('processor', None))
+        so = str(request.json.get('so', None))
+        distribution = str(request.json.get('distribution', None))
+        mem_total = str(request.json.get('mem_total', None))
+        mem_free = str(request.json.get('mem_free', None))
+        up_time = str(request.json.get('up_time', None))
+        mac_address = str(request.json.get('mac_address', None))
+
+        now = datetime.datetime.now()
+		created_at = now.strftime("%d-%m-%Y %H:%M")
+
+
+        cur = mysql.connection.cursor()
+        cur.execute("INSERT INTO hosts (hostname, ip, architecture, plataform, processor, so, distribution, mem_total, mem_free, up_time, mac_address, created_at) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (hostname, ip, architecture, plataform, processor, so, distribution, mem_total, mem_free, up_time, mac_address, created_at))
+        mysql.connection.commit()
+
+        return jsonify({'host_add': 'true'}), 200
+    except Exception as error:
+        return jsonify(error), 400
+    finally:
+        cur.close
