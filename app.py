@@ -36,6 +36,8 @@ def hosts():
                 'mem_free': result[9],
                 'up_time': result[10],
                 'mac_address': result[11]
+                'created_at': result[12]
+                'updated_at': result[13]
             }
             
             payload.append(content)
