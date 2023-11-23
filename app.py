@@ -63,9 +63,9 @@ def add_host():
         mem_free = str(request.json.get('mem_free', None))
         up_time = str(request.json.get('up_time', None))
         mac_address = str(request.json.get('mac_address', None))
-
+        
         now = datetime.datetime.now()
-		created_at = now.strftime("%d-%m-%Y %H:%M")
+        created_at = now.strftime("%d-%m-%Y %H:%M")
 
 
         cur = mysql.connection.cursor()
