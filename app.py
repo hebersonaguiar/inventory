@@ -16,7 +16,10 @@ mysql = connection.get_connection(application)
 def hosts():
     try:
         cur = mysql.connection.cursor()
-        cur.execute("SELECT id, hostname, ip, architecture, plataform, processor, so, distribution, mem_total, mem_free, up_time, mac_address, created_at, updated_at FROM hosts")
+        cur.execute("""SELECT hosts.id, hosts.hostname, hosts.ip, hosts.architecture, hosts.plataform, hosts.processor, hosts.so, hosts.distribution, hosts.mem_total, hosts.mem_free, hosts.up_time, hosts.mac_address, hosts.created_at, hosts.updated_at, hosts_aditional_infra.environnment, hosts_aditional_infra.url, hosts_aditional_infra.cluster, hosts_aditional_infra.publication, hosts_aditional_infra.midleware, hosts_aditional_infra.framework, hosts_aditional_infra.app_language 
+                     FROM hosts
+                     RIGHT JOIN hosts_aditional_infra ON hosts.hostname = hosts_aditional_infra.hostname
+                     ORDER BY hosts.id""")
         data = cur.fetchall()
 
         payload = []
