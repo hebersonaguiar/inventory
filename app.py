@@ -42,7 +42,7 @@ def hosts():
                 'up_time': result[10],
                 'mac_address': result[11],
                 'created_at': result[12],
-                'updated_at': result[13]
+                'updated_at': result[13],
                 'environnment': result[14],
                 'url': result[15],
                 'cluster': result[16],
