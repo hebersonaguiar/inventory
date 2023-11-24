@@ -16,7 +16,9 @@ mysql = connection.get_connection(application)
 def hosts():
     try:
         cur = mysql.connection.cursor()
-        cur.execute("""SELECT hosts.id, hosts.hostname, hosts.ip, hosts.architecture, hosts.plataform, hosts.processor, hosts.so, hosts.distribution, hosts.mem_total, hosts.mem_free, hosts.up_time, hosts.mac_address, hosts.created_at, hosts.updated_at, hosts_aditional_infra.environnment, hosts_aditional_infra.url, hosts_aditional_infra.cluster, hosts_aditional_infra.publication, hosts_aditional_infra.midleware, hosts_aditional_infra.framework, hosts_aditional_infra.app_language 
+        cur.execute("""SELECT hosts.id, hosts.hostname, hosts.ip, hosts.architecture, hosts.plataform, hosts.processor, hosts.so, hosts.distribution, hosts.mem_total, hosts.mem_free, hosts.up_time, 
+                    hosts.mac_address, hosts.created_at, hosts.updated_at, hosts_aditional_infra.environnment, hosts_aditional_infra.url, hosts_aditional_infra.cluster, hosts_aditional_infra.publication, 
+                    hosts_aditional_infra.midleware, hosts_aditional_infra.framework, hosts_aditional_infra.app_language 
                      FROM hosts
                      RIGHT JOIN hosts_aditional_infra ON hosts.hostname = hosts_aditional_infra.hostname
                      ORDER BY hosts.id""")
@@ -41,6 +43,13 @@ def hosts():
                 'mac_address': result[11],
                 'created_at': result[12],
                 'updated_at': result[13]
+                'environnment': result[14],
+                'url': result[15],
+                'cluster': result[16],
+                'publication': result[17],
+                'midleware': result[18],
+                'framework': result[19],
+                'app_language': result[20],
             }
             
             payload.append(content)
