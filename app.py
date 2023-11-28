@@ -16,12 +16,15 @@ mysql = connection.get_connection(application)
 def hosts():
     try:
         cur = mysql.connection.cursor()
-        cur.execute("""SELECT hosts.id, hosts.hostname, hosts.ip, hosts.architecture, hosts.plataform, hosts.processor, hosts.so, hosts.distribution, hosts.mem_total, hosts.mem_free, hosts.up_time, 
-                    hosts.mac_address, hosts.created_at, hosts.updated_at, hosts_aditional_infra.environnment, hosts_aditional_infra.url, hosts_aditional_infra.cluster, hosts_aditional_infra.publication, 
-                    hosts_aditional_infra.midleware, hosts_aditional_infra.framework, hosts_aditional_infra.app_language 
-                     FROM hosts
-                     RIGHT JOIN hosts_aditional_infra ON hosts.hostname = hosts_aditional_infra.hostname
-                     ORDER BY hosts.id""")
+        cur.execute("""SELECT hosts.id, hosts.hostname, hosts.ip, hosts.architecture, hosts.plataform, 
+                                hosts.processor, hosts.so, hosts.distribution, hosts.mem_total, hosts.mem_free, 
+                                hosts.up_time, hosts.mac_address, hosts.created_at, hosts.updated_at, 
+                                hi.environnment, hi.url, hi.cluster, hi.publication, hi.midleware, hi.framework, hi.app_language,
+                                hb.priority, hb.risk, hb.acronym, hb.goal, hb.datacenter, hb.repository, hb.national_cjf 
+                            FROM hosts
+                            INNER JOIN hosts_aditional_infra hi ON hosts.hostname = hi.hostname
+                            INNER JOIN hosts_business hb ON hosts.hostname = hb.hostname
+                            ORDER BY hosts.id""")
         data = cur.fetchall()
 
         payload = []
@@ -50,6 +53,13 @@ def hosts():
                 'midleware': result[18],
                 'framework': result[19],
                 'app_language': result[20],
+                'priority': result[21],
+                'risk': result[22],
+                'acronym': result[23],
+                'goal': result[24],
+                'datacenter': result[25],
+                'repository': result[26],
+                'national_cjf': result[27],
             }
             
             payload.append(content)
