@@ -84,7 +84,7 @@ def getHostsByUsername(servername):
                             FROM hosts
                             INNER JOIN hosts_aditional_infra hi ON hosts.hostname = hi.hostname
                             INNER JOIN hosts_business hb ON hosts.hostname = hb.hostname
-                            WHERE hosts.hostname = {}
+                            WHERE hosts.hostname = "{}"
                             ORDER BY hosts.id""".format(servername))
         data = cur.fetchall()
 
