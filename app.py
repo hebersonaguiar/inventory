@@ -72,6 +72,67 @@ def hosts():
     finally:
         cur.close
 
+@application.route('/hosts/<string:servername>', methods=['GET'])
+def getHostsByUsername(servername):
+    try:
+        cur = mysql.connection.cursor()
+        cur.execute("""SELECT hosts.id, hosts.hostname, hosts.ip, hosts.architecture, hosts.plataform, 
+                                hosts.processor, hosts.so, hosts.distribution, hosts.mem_total, hosts.mem_free, 
+                                hosts.up_time, hosts.mac_address, hosts.created_at, hosts.updated_at, 
+                                hi.environnment, hi.url, hi.cluster, hi.publication, hi.midleware, hi.framework, hi.app_language,
+                                hb.priority, hb.risk, hb.acronym, hb.goal, hb.datacenter, hb.repository, hb.national_cjf 
+                            FROM hosts
+                            INNER JOIN hosts_aditional_infra hi ON hosts.hostname = hi.hostname
+                            INNER JOIN hosts_business hb ON hosts.hostname = hb.hostname
+                            WHERE hosts.hostname = {}
+                            ORDER BY hosts.id""".format(servername))
+        data = cur.fetchall()
+
+        payload = []
+        content = []
+
+        for result in data:
+            content = {
+                'id': result[0],
+                'hostname': result[1],
+                'ip': result[2],
+                'architecture': result[3],
+                'plataform': result[4],
+                'processor': result[5],
+                'so': result[6],
+                'distribution': result[7],
+                'mem_total': result[8],
+                'mem_free': result[9],
+                'up_time': result[10],
+                'mac_address': result[11],
+                'created_at': result[12],
+                'updated_at': result[13],
+                'environnment': result[14],
+                'url': result[15],
+                'cluster': result[16],
+                'publication': result[17],
+                'midleware': result[18],
+                'framework': result[19],
+                'app_language': result[20],
+                'priority': result[21],
+                'risk': result[22],
+                'acronym': result[23],
+                'goal': result[24],
+                'datacenter': result[25],
+                'repository': result[26],
+                'national_cjf': result[27],
+            }
+            
+            payload.append(content)
+            content = {}
+
+        # return jsonify({'test': 'true'}), 200
+        return jsonify(payload), 200
+    except Exception as error:
+        return jsonify(error), 400
+    finally:
+        cur.close
+
 @application.route('/hosts', methods=['POST'])
 def add_host():
     try:
