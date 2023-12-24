@@ -154,11 +154,11 @@ def add_host():
 
 
         cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO hosts_business (hostname) VALUES (%s)", (hostname))
+        cur.execute("INSERT INTO hosts_business (hostname) VALUES ({})".format(hostname))
         # mysql.connection.commit()
 
         # cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO hosts_aditional_infra (hostname) VALUES (%s)", (hostname))
+        cur.execute("INSERT INTO hosts_aditional_infra (hostname) VALUES ({})".format(hostname))
         # mysql.connection.commit()
 
         # cur = mysql.connection.cursor()
