@@ -169,4 +169,6 @@ def add_host():
     except Exception as error:
         return jsonify(error), 400
     finally:
+        cur_business.close
+        cur_add_infra.close
         cur.close
