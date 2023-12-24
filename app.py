@@ -155,7 +155,13 @@ def add_host():
 
         cur = mysql.connection.cursor()
         cur.execute("INSERT INTO hosts_business (hostname) VALUES (%s)", (hostname))
+        mysql.connection.commit()
+
+        cur = mysql.connection.cursor()
         cur.execute("INSERT INTO hosts_aditional_infra (hostname) VALUES (%s)", (hostname))
+        mysql.connection.commit()
+
+        cur = mysql.connection.cursor()
         cur.execute("INSERT INTO hosts (hostname, ip, architecture, plataform, processor, so, distribution, mem_total, mem_free, up_time, mac_address, created_at) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (hostname, ip, architecture, plataform, processor, so, distribution, mem_total, mem_free, up_time, mac_address, created_at))
         mysql.connection.commit()
 
