@@ -165,3 +165,52 @@ def add_host():
         return jsonify(error), 400
     finally:
         cur.close
+
+@application.route('/update-infos', methods=['PUT'])
+def update_infos():
+    try:
+        hostname = str(request.json.get('hostname', None))
+        url = str(request.json.get('url'),None)
+        cluster = str(request.json.get('cluster'),None)
+        publication = str(request.json.get('publication'),None)
+        environnment = str(request.json.get('architecture', None))
+        middleware = str(request.json.get('middleware'),None)
+        framework = str(request.json.get('framework'),None)
+        app_language = str(request.json.get('app_language'),None)
+        priority = str(request.json.get('priority'),None)
+        risk = str(request.json.get('risk'),None)
+        acronym = str(request.json.get('acronym'),None)
+        datacenter = str(request.json.get('datacenter'),None)
+        repository = str(request.json.get('repository'),None)
+        national_cjf = str(request.json.get('national_cjf'),None)
+        goal = str(request.json.get('goal'),None)
+
+        now = datetime.datetime.now()
+        updated_at = now.strftime("%d-%m-%Y %H:%M")
+
+        cur = mysql.connection.cursor()
+        
+        cur.execute("UPDATE hosts SET updated_at=%s WHERE hostname=%s", (updated_at, hostname))
+
+        cur.execute("""
+                    UPDATE hosts_aditional_infra
+                    SET environnment=%s, url=%s, cluster=%s, publication=%s, middleware=%s, framework=%s, app_language=%s 
+                    WHERE hostname=%s
+                    """, (environnment, url, publication, middleware, framework, app_language, hostname))
+                    
+        cur.execute("""
+                UPDATE hosts_business
+                SET priority=%s, risk=%s, acronym=%s, goal=%s, datacenter=%s, repository=%s, national_cjf=%s
+                WHERE hostname=%s
+                    """, (priority, risk, acronym, goal, datacenter, repository, national_cjf, hostname))
+
+        mysql.connection.commit()
+
+        return jsonify({'host_info': 'true'}), 200
+    except Exception as error:
+        return jsonify(error), 400
+    finally:
+        cur.close
+
+
+
