@@ -166,7 +166,7 @@ def add_host():
     finally:
         cur.close
 
-@application.route('/update-infos/<string:servername>', methods=['PUT'])
+@application.route('/hosts/<string:servername>', methods=['PUT'])
 def update_infos(servername):
     try:
 
