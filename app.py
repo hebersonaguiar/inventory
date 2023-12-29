@@ -166,10 +166,10 @@ def add_host():
     finally:
         cur.close
 
-@application.route('/update-infos', methods=['PUT'])
-def update_infos():
+@application.route('/update-infos/<string:servername>', methods=['PUT'])
+def update_infos(servername):
     try:
-        hostname = str(request.json.get('hostname', None))
+
         url = str(request.json.get('url'),None)
         cluster = str(request.json.get('cluster'),None)
         publication = str(request.json.get('publication'),None)
@@ -190,19 +190,19 @@ def update_infos():
 
         cur = mysql.connection.cursor()
         
-        cur.execute("UPDATE hosts SET updated_at=%s WHERE hostname=%s", (updated_at, hostname))
+        cur.execute("UPDATE hosts SET updated_at=%s WHERE hostname=%s", (updated_at, servername))
 
         cur.execute("""
                     UPDATE hosts_aditional_infra
                     SET environnment=%s, url=%s, cluster=%s, publication=%s, middleware=%s, framework=%s, app_language=%s 
                     WHERE hostname=%s
-                    """, (environnment, url, publication, middleware, framework, app_language, hostname))
-                    
+                    """, (environnment, url, publication, middleware, framework, app_language, servername))
+
         cur.execute("""
                 UPDATE hosts_business
                 SET priority=%s, risk=%s, acronym=%s, goal=%s, datacenter=%s, repository=%s, national_cjf=%s
                 WHERE hostname=%s
-                    """, (priority, risk, acronym, goal, datacenter, repository, national_cjf, hostname))
+                    """, (priority, risk, acronym, goal, datacenter, repository, national_cjf, servername))
 
         mysql.connection.commit()
 
