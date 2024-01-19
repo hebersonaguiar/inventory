@@ -191,12 +191,9 @@ def update_infos(servername):
         cur = mysql.connection.cursor()
         
         cur.execute("UPDATE hosts SET updated_at='{}' WHERE hostname='{}'".format(updated_at, servername))
-        
-        # cur.execute("INSERT INTO hosts_business (hostname) VALUES ('{}')".format(hostname))
-        
 
         cur.execute("""UPDATE hosts_aditional_infra
-                    SET environnment='{}', url='{}', cluster='{}', publication='{}', middleware='{}', framework='{}', app_language='{}' 
+                    SET environnment='{}', url='{}', cluster='{}', publication='{}', midleware='{}', framework='{}', app_language='{}' 
                     WHERE hostname='{}'""".format(environnment, url, cluster, publication, middleware, framework, app_language, servername))
 
         cur.execute("""UPDATE hosts_business
