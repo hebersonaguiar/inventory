@@ -202,7 +202,7 @@ def update_infos(servername):
 
         mysql.connection.commit()
 
-        return jsonify({'host_info': 'true'}), 200
+        return jsonify({'host_info': 'updated'}), 200
     except Exception as error:
         return jsonify(error), 400
     finally:
