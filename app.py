@@ -197,7 +197,7 @@ def update_infos(servername):
 
         cur.execute("""UPDATE hosts_aditional_infra
                     SET environnment='{}', url='{}', cluster='{}', publication='{}', middleware='{}', framework='{}', app_language='{}' 
-                    WHERE hostname='{}'""".format(environnment, url, publication, middleware, framework, app_language, servername))
+                    WHERE hostname='{}'""".format(environnment, url, cluster, publication, middleware, framework, app_language, servername))
 
         cur.execute("""UPDATE hosts_business
                     SET priority='{}', risk='{}', acronym='{}', goal='{}', datacenter='{}', repository='{}', national_cjf='{}'
