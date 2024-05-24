@@ -166,7 +166,7 @@ def add_host():
     finally:
         cur.close
 
-@application.route('/hosts/<string:servername>', methods=['PUT'])
+@application.route('/v1/updateiventory/<string:servername>', methods=['PUT'])
 def update_infos(servername):
     try:
 
@@ -184,9 +184,10 @@ def update_infos(servername):
         repository = str(request.json.get('repository',None))
         national_cjf = str(request.json.get('national_cjf',None))
         goal = str(request.json.get('goal',None))
+        updated_at = str(request.json.get('updated_at',None))
 
-        now = datetime.datetime.now()
-        updated_at = now.strftime("%d-%m-%Y %H:%M")
+        # now = datetime.datetime.now()
+        # updated_at = now.strftime("%d-%m-%Y %H:%M")
 
         cur = mysql.connection.cursor()
         
