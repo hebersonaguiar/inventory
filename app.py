@@ -166,7 +166,7 @@ def add_host():
     finally:
         cur.close
 
-@application.route('/v1/updateiventory/<string:servername>', methods=['POST'])
+@application.route('/v1/updateiventory/<string:servername>', methods=['PUT'])
 def update_infos(servername):
     try:
 
