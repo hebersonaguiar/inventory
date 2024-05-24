@@ -166,14 +166,14 @@ def add_host():
     finally:
         cur.close
 
-@application.route('/v1/updateiventory/<string:servername>', methods=['PUT'])
+@application.route('/v1/updateiventory/<string:servername>', methods=['POST'])
 def update_infos(servername):
     try:
 
         url = str(request.json.get('url',None))
         cluster = str(request.json.get('cluster',None))
         publication = str(request.json.get('publication',None))
-        environnment = str(request.json.get('architecture', None))
+        environnment = str(request.json.get('environnment', None))
         middleware = str(request.json.get('middleware',None))
         framework = str(request.json.get('framework',None))
         app_language = str(request.json.get('app_language',None))
