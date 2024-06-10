@@ -167,16 +167,19 @@ def add_host():
                 result[0],
             }
         print(content)
-            
-        
 
-        cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO hosts_business (hostname) VALUES ('{}')".format(hostname))
+        if hostname not in content:
+            print("Hostname: ", hostname)
+        else:
+            print("Hostname não encontrado")
+       
+            cur = mysql.connection.cursor()
+            cur.execute("INSERT INTO hosts_business (hostname) VALUES ('{}')".format(hostname))
 
-        cur.execute("INSERT INTO hosts_aditional_infra (hostname) VALUES ('{}')".format(hostname))
+            cur.execute("INSERT INTO hosts_aditional_infra (hostname) VALUES ('{}')".format(hostname))
 
-        cur.execute("INSERT INTO hosts (hostname, ip, architecture, plataform, processor, so, distribution, mem_total, mem_free, up_time, mac_address, created_at) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (hostname, ip, architecture, plataform, processor, so, distribution, mem_total, mem_free, up_time, mac_address, created_at))
-        mysql.connection.commit()
+            cur.execute("INSERT INTO hosts (hostname, ip, architecture, plataform, processor, so, distribution, mem_total, mem_free, up_time, mac_address, created_at) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (hostname, ip, architecture, plataform, processor, so, distribution, mem_total, mem_free, up_time, mac_address, created_at))
+            mysql.connection.commit()
 
         return jsonify({'host_add': 'true'}), 200
     except Exception as error:
