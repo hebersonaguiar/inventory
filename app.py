@@ -152,6 +152,14 @@ def add_host():
         now = datetime.datetime.now()
         created_at = now.strftime("%d-%m-%Y %H:%M")
 
+        curCheckHostname = mysql.connection.cursor()
+        curCheckHostname.execute("""SELECT hostname 
+                            FROM hosts
+                            WHERE hosts.hostname = "{}"
+                    """.format(hostname))
+        data = curCheckHostname.fetchall()
+        print(data)
+
         cur = mysql.connection.cursor()
         cur.execute("INSERT INTO hosts_business (hostname) VALUES ('{}')".format(hostname))
 
