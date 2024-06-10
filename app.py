@@ -164,7 +164,7 @@ def add_host():
 
         for result in data:
             content = {
-                'hostname': result[0][0],
+                result[0],
             }
         print(content)
             
