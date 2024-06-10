@@ -169,7 +169,8 @@ def add_host():
 
         if hostname in content:
             print("Atualizando: ", hostname)
-            cur.execute("""UPDATE hosts (
+            curUpdate = mysql.connection.cursor()
+            curUpdate.execute("""UPDATE hosts (
                         hostname = {}, 
                         ip = {}, 
                         architecture = {}, 
@@ -182,6 +183,8 @@ def add_host():
                         up_time = {}, 
                         mac_address = {}, 
                         created_at) """.format(hostname, ip, architecture, plataform, processor, so, distribution, mem_total, mem_free, up_time, mac_address))
+            mysql.connection.commit()
+            curUpdate.close
         else:
             print("Adicionando: ", hostname)
        
