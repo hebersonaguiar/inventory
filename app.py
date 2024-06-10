@@ -171,17 +171,17 @@ def add_host():
             print("Atualizando: ", hostname)
             curUpdate = mysql.connection.cursor()
             curUpdate.execute("""UPDATE hosts (
-                        hostname = {}, 
-                        ip = {}, 
-                        architecture = {}, 
-                        plataform = {}, 
-                        processor = {}, 
-                        so = {}, 
-                        distribution = {}, 
-                        mem_total = {}, 
-                        mem_free = {}, 
-                        up_time = {}, 
-                        mac_address = {}, 
+                        hostname = '{}', 
+                        ip = '{}', 
+                        architecture = '{}', 
+                        plataform = '{}', 
+                        processor = '{}', 
+                        so = '{}', 
+                        distribution = '{}', 
+                        mem_total = '{}', 
+                        mem_free = '{}', 
+                        up_time = '{}', 
+                        mac_address = '{}', 
                         created_at) """.format(hostname, ip, architecture, plataform, processor, so, distribution, mem_total, mem_free, up_time, mac_address))
             mysql.connection.commit()
             curUpdate.close
