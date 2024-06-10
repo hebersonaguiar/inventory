@@ -159,7 +159,6 @@ def add_host():
                     """.format(hostname))
         data = curCheckHostname.fetchall()
 
-        payload = []
         content = []
 
         for result in data:
@@ -169,9 +168,22 @@ def add_host():
         print(content)
 
         if hostname in content:
-            print("Hostname: ", hostname)
+            print("Atualizando: ", hostname)
+            cur.execute("""UPDATE hosts (
+                        hostname = {}, 
+                        ip = {}, 
+                        architecture = {}, 
+                        plataform = {}, 
+                        processor = {}, 
+                        so = {}, 
+                        distribution = {}, 
+                        mem_total = {}, 
+                        mem_free = {}, 
+                        up_time = {}, 
+                        mac_address = {}, 
+                        created_at) """.format(hostname, ip, architecture, plataform, processor, so, distribution, mem_total, mem_free, up_time, mac_address))
         else:
-            print("Hostname não encontrado")
+            print("Adicionando: ", hostname)
        
             cur = mysql.connection.cursor()
             cur.execute("INSERT INTO hosts_business (hostname) VALUES ('{}')".format(hostname))
