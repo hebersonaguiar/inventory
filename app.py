@@ -168,7 +168,7 @@ def add_host():
             }
         print(content)
 
-        if hostname not in content:
+        if hostname in content:
             print("Hostname: ", hostname)
         else:
             print("Hostname não encontrado")
