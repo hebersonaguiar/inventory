@@ -180,12 +180,13 @@ def add_host():
 
             cur.execute("INSERT INTO hosts (hostname, ip, architecture, plataform, processor, so, distribution, mem_total, mem_free, up_time, mac_address, created_at) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (hostname, ip, architecture, plataform, processor, so, distribution, mem_total, mem_free, up_time, mac_address, created_at))
             mysql.connection.commit()
+            cur.close
 
         return jsonify({'host_add': 'true'}), 200
     except Exception as error:
         return jsonify(error), 400
-    finally:
-        cur.close
+    # finally:
+    #     cur.close
 
 @application.route('/v1/updateiventory/<string:servername>', methods=['PUT'])
 def update_infos(servername):
