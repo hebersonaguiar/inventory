@@ -158,7 +158,17 @@ def add_host():
                             WHERE hosts.hostname = "{}"
                     """.format(hostname))
         data = curCheckHostname.fetchall()
-        print(data)
+
+        payload = []
+        content = []
+
+        for result in data:
+            content = {
+                'hostname': result[0],
+            }
+        print(content)
+            
+        
 
         cur = mysql.connection.cursor()
         cur.execute("INSERT INTO hosts_business (hostname) VALUES ('{}')".format(hostname))
