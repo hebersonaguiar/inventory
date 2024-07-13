@@ -16,15 +16,27 @@ mysql = connection.get_connection(application)
 def hosts():
     try:
         cur = mysql.connection.cursor()
-        cur.execute("""SELECT hosts.id, hosts.hostname, hosts.ip, hosts.architecture, hosts.plataform, 
-                                hosts.processor, hosts.so, hosts.distribution, hosts.mem_total, hosts.mem_free, 
-                                hosts.up_time, hosts.mac_address, hosts.created_at, hosts.updated_at, 
-                                hi.environnment, hi.url, hi.cluster, hi.publication, hi.midleware, hi.framework, hi.app_language,
-                                hb.priority, hb.risk, hb.acronym, hb.goal, hb.datacenter, hb.repository, hb.national_cjf 
-                            FROM hosts
-                            INNER JOIN hosts_aditional_infra hi ON hosts.hostname = hi.hostname
-                            INNER JOIN hosts_business hb ON hosts.hostname = hb.hostname
-                            ORDER BY hosts.id""")
+        cur.execute("""SELECT h.id,h.hostname,h.ip,h.architecture,h.plataform,h.processor,h.so,h.distribution,h.mem_total,
+                                h.mem_free,h.up_time,h.mac_address,h.created_at,h.updated_at,hi.cluster,hi.url,hi.scope,
+                                hi.middleware,hi.framework,hi.environnment,hi.db_server,hi.db_name,hi.db_schema,
+                                hi.db_user,hi.db_type,hi.kubernetes,hi.arch_ref,hi.monitoring_z,hi.situation,
+                                hi.backup,hi.repository,hi.type,hb.auth,hb.permission,hb.responsible_cad,
+                                hb.responsible_permission,hb.manager,hb.manager_substitute,hb.unit,hb.concierge_manager,
+                                hb.sei_processor,hb.observation,hb.priority,hb.acronym,hb.sti_action,hb.datacenter,
+                                hb.goal,hb.national_cjf
+                        FROM hosts_new h
+                        INNER JOIN hosts_aditional_infra_new hi ON h.hostname = hi.hostname
+                        INNER JOIN hosts_business_new hb ON h.hostname = hb.hostname
+                        ORDER BY h.id""")
+        # cur.execute("""SELECT hosts.id, hosts.hostname, hosts.ip, hosts.architecture, hosts.plataform, 
+        #                         hosts.processor, hosts.so, hosts.distribution, hosts.mem_total, hosts.mem_free, 
+        #                         hosts.up_time, hosts.mac_address, hosts.created_at, hosts.updated_at, 
+        #                         hi.environnment, hi.url, hi.cluster, hi.publication, hi.midleware, hi.framework, hi.app_language,
+        #                         hb.priority, hb.risk, hb.acronym, hb.goal, hb.datacenter, hb.repository, hb.national_cjf 
+        #                     FROM hosts_new
+        #                     INNER JOIN hosts_aditional_infra_new hi ON hosts.hostname = hi.hostname
+        #                     INNER JOIN hosts_business_new hb ON hosts.hostname = hb.hostname
+        #                     ORDER BY hosts.id""")
         data = cur.fetchall()
 
         payload = []
@@ -46,21 +58,70 @@ def hosts():
                 'mac_address': result[11],
                 'created_at': result[12],
                 'updated_at': result[13],
-                'environnment': result[14],
+                'cluster': result[14],
                 'url': result[15],
-                'cluster': result[16],
-                'publication': result[17],
-                'midleware': result[18],
-                'framework': result[19],
-                'app_language': result[20],
-                'priority': result[21],
-                'risk': result[22],
-                'acronym': result[23],
-                'goal': result[24],
-                'datacenter': result[25],
-                'repository': result[26],
-                'national_cjf': result[27],
+                'scope': result[16],
+                'middleware': result[17],
+                'framework': result[18],
+                'environnment': result[19],
+                'db_server': result[20],
+                'db_name': result[21],
+                'db_schema': result[22],
+                'db_user': result[23],
+                'db_type': result[24],
+                'kubernetes': result[25],
+                'monitoring_z': result[26],
+                'situation': result[27],
+                'backup': result[28],
+                'repository': result[29],
+                'type': result[30],
+                'auth': result[31],
+                'permission': result[32],
+                'responsible_cad': result[33],
+                'responsible_permission': result[34],
+                'manager': result[35],
+                'manager_substitute': result[36],
+                'unit': result[37],
+                'concierge_manager': result[38],
+                'sei_processor': result[39],
+                'observation': result[40],
+                'priority': result[41],
+                'acronym': result[42],
+                'sti_action': result[43],
+                'datacenter': result[44],
+                'goal': result[45],
+                'national_cjf': result[46],
             }
+            # content = {
+            #     'id': result[0],
+            #     'hostname': result[1],
+            #     'ip': result[2],
+            #     'architecture': result[3],
+            #     'plataform': result[4],
+            #     'processor': result[5],
+            #     'so': result[6],
+            #     'distribution': result[7],
+            #     'mem_total': result[8],
+            #     'mem_free': result[9],
+            #     'up_time': result[10],
+            #     'mac_address': result[11],
+            #     'created_at': result[12],
+            #     'updated_at': result[13],
+            #     'environnment': result[14],
+            #     'url': result[15],
+            #     'cluster': result[16],
+            #     'publication': result[17],
+            #     'midleware': result[18],
+            #     'framework': result[19],
+            #     'app_language': result[20],
+            #     'priority': result[21],
+            #     'risk': result[22],
+            #     'acronym': result[23],
+            #     'goal': result[24],
+            #     'datacenter': result[25],
+            #     'repository': result[26],
+            #     'national_cjf': result[27],
+            # }
             
             payload.append(content)
             content = {}
@@ -76,16 +137,29 @@ def hosts():
 def getHostsByUsername(servername):
     try:
         cur = mysql.connection.cursor()
-        cur.execute("""SELECT hosts.id, hosts.hostname, hosts.ip, hosts.architecture, hosts.plataform, 
-                                hosts.processor, hosts.so, hosts.distribution, hosts.mem_total, hosts.mem_free, 
-                                hosts.up_time, hosts.mac_address, hosts.created_at, hosts.updated_at, 
-                                hi.environnment, hi.url, hi.cluster, hi.publication, hi.midleware, hi.framework, hi.app_language,
-                                hb.priority, hb.risk, hb.acronym, hb.goal, hb.datacenter, hb.repository, hb.national_cjf 
-                            FROM hosts
-                            INNER JOIN hosts_aditional_infra hi ON hosts.hostname = hi.hostname
-                            INNER JOIN hosts_business hb ON hosts.hostname = hb.hostname
-                            WHERE hosts.hostname = "{}"
-                            ORDER BY hosts.id""".format(servername))
+        cur.execute("""SELECT h.id,h.hostname,h.ip,h.architecture,h.plataform,h.processor,h.so,h.distribution,h.mem_total,
+                                h.mem_free,h.up_time,h.mac_address,h.created_at,h.updated_at,hi.cluster,hi.url,hi.scope,
+                                hi.middleware,hi.framework,hi.environnment,hi.db_server,hi.db_name,hi.db_schema,
+                                hi.db_user,hi.db_type,hi.kubernetes,hi.arch_ref,hi.monitoring_z,hi.situation,
+                                hi.backup,hi.repository,hi.type,hb.auth,hb.permission,hb.responsible_cad,
+                                hb.responsible_permission,hb.manager,hb.manager_substitute,hb.unit,hb.concierge_manager,
+                                hb.sei_processor,hb.observation,hb.priority,hb.acronym,hb.sti_action,hb.datacenter,
+                                hb.goal,hb.national_cjf
+                            FROM hosts_new h
+                            INNER JOIN hosts_aditional_infra_new hi ON h.hostname = hi.hostname
+                            INNER JOIN hosts_business_new hb ON h.hostname = hb.hostname
+    #                       WHERE h.hostname = "{}"
+                            ORDER BY h.id""".format(servername))
+        # cur.execute("""SELECT hosts.id, hosts.hostname, hosts.ip, hosts.architecture, hosts.plataform, 
+        #                         hosts.processor, hosts.so, hosts.distribution, hosts.mem_total, hosts.mem_free, 
+        #                         hosts.up_time, hosts.mac_address, hosts.created_at, hosts.updated_at, 
+        #                         hi.environnment, hi.url, hi.cluster, hi.publication, hi.midleware, hi.framework, hi.app_language,
+        #                         hb.priority, hb.risk, hb.acronym, hb.goal, hb.datacenter, hb.repository, hb.national_cjf 
+        #                     FROM hosts_new
+        #                     INNER JOIN hosts_aditional_infra_new hi ON hosts.hostname = hi.hostname
+        #                     INNER JOIN hosts_business_new hb ON hosts.hostname = hb.hostname
+        #                     WHERE hosts.hostname = "{}"
+        #                     ORDER BY hosts.id""".format(servername))
         data = cur.fetchall()
 
         payload = []
@@ -107,21 +181,70 @@ def getHostsByUsername(servername):
                 'mac_address': result[11],
                 'created_at': result[12],
                 'updated_at': result[13],
-                'environnment': result[14],
+                'cluster': result[14],
                 'url': result[15],
-                'cluster': result[16],
-                'publication': result[17],
-                'midleware': result[18],
-                'framework': result[19],
-                'app_language': result[20],
-                'priority': result[21],
-                'risk': result[22],
-                'acronym': result[23],
-                'goal': result[24],
-                'datacenter': result[25],
-                'repository': result[26],
-                'national_cjf': result[27],
+                'scope': result[16],
+                'middleware': result[17],
+                'framework': result[18],
+                'environnment': result[19],
+                'db_server': result[20],
+                'db_name': result[21],
+                'db_schema': result[22],
+                'db_user': result[23],
+                'db_type': result[24],
+                'kubernetes': result[25],
+                'monitoring_z': result[26],
+                'situation': result[27],
+                'backup': result[28],
+                'repository': result[29],
+                'type': result[30],
+                'auth': result[31],
+                'permission': result[32],
+                'responsible_cad': result[33],
+                'responsible_permission': result[34],
+                'manager': result[35],
+                'manager_substitute': result[36],
+                'unit': result[37],
+                'concierge_manager': result[38],
+                'sei_processor': result[39],
+                'observation': result[40],
+                'priority': result[41],
+                'acronym': result[42],
+                'sti_action': result[43],
+                'datacenter': result[44],
+                'goal': result[45],
+                'national_cjf': result[46],
             }
+            # content = {
+            #     'id': result[0],
+            #     'hostname': result[1],
+            #     'ip': result[2],
+            #     'architecture': result[3],
+            #     'plataform': result[4],
+            #     'processor': result[5],
+            #     'so': result[6],
+            #     'distribution': result[7],
+            #     'mem_total': result[8],
+            #     'mem_free': result[9],
+            #     'up_time': result[10],
+            #     'mac_address': result[11],
+            #     'created_at': result[12],
+            #     'updated_at': result[13],
+            #     'environnment': result[14],
+            #     'url': result[15],
+            #     'cluster': result[16],
+            #     'publication': result[17],
+            #     'midleware': result[18],
+            #     'framework': result[19],
+            #     'app_language': result[20],
+            #     'priority': result[21],
+            #     'risk': result[22],
+            #     'acronym': result[23],
+            #     'goal': result[24],
+            #     'datacenter': result[25],
+            #     'repository': result[26],
+            #     'national_cjf': result[27],
+            # }
             
             payload.append(content)
             content = {}
@@ -154,9 +277,13 @@ def add_host():
 
         curCheckHostname = mysql.connection.cursor()
         curCheckHostname.execute("""SELECT hostname 
-                            FROM hosts
-                            WHERE hosts.hostname = "{}"
+                            FROM hosts_new h
+                            WHERE h.hostname = "{}"
                     """.format(hostname))
+        # curCheckHostname.execute("""SELECT hostname 
+        #                     FROM hosts
+        #                     WHERE hosts.hostname = "{}"
+        #             """.format(hostname))
         data = curCheckHostname.fetchall()
 
         content = []
@@ -170,7 +297,7 @@ def add_host():
         if hostname in content:
             print("Atualizando: ", hostname)
             curUpdate = mysql.connection.cursor()
-            curUpdate.execute("""UPDATE hosts
+            curUpdate.execute("""UPDATE hosts_new
                         SET ip = '{}', 
                         architecture = '{}', 
                         plataform = '{}', 
@@ -182,6 +309,18 @@ def add_host():
                         up_time = '{}', 
                         mac_address = '{}' 
                         WHERE hostname = '{}'""".format(ip, architecture, plataform, processor, so, distribution, mem_total, mem_free, up_time, mac_address, hostname))
+            # curUpdate.execute("""UPDATE hosts
+            #             SET ip = '{}', 
+            #             architecture = '{}', 
+            #             plataform = '{}', 
+            #             processor = '{}', 
+            #             so = '{}', 
+            #             distribution = '{}', 
+            #             mem_total = '{}', 
+            #             mem_free = '{}', 
+            #             up_time = '{}', 
+            #             mac_address = '{}' 
+            #             WHERE hostname = '{}'""".format(ip, architecture, plataform, processor, so, distribution, mem_total, mem_free, up_time, mac_address, hostname))
             mysql.connection.commit()
             curUpdate.close
 
@@ -192,11 +331,13 @@ def add_host():
             print("Adicionando: ", hostname)
        
             cur = mysql.connection.cursor()
-            cur.execute("INSERT INTO hosts_business (hostname) VALUES ('{}')".format(hostname))
+            cur.execute("INSERT INTO hosts_business_new (hostname) VALUES ('{}')".format(hostname))
+            # cur.execute("INSERT INTO hosts_business (hostname) VALUES ('{}')".format(hostname))
 
-            cur.execute("INSERT INTO hosts_aditional_infra (hostname) VALUES ('{}')".format(hostname))
+            cur.execute("INSERT INTO hosts_aditional_infra_new (hostname) VALUES ('{}')".format(hostname))
+            # cur.execute("INSERT INTO hosts_aditional_infra (hostname) VALUES ('{}')".format(hostname))
 
-            cur.execute("INSERT INTO hosts (hostname, ip, architecture, plataform, processor, so, distribution, mem_total, mem_free, up_time, mac_address, created_at) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (hostname, ip, architecture, plataform, processor, so, distribution, mem_total, mem_free, up_time, mac_address, created_at))
+            cur.execute("INSERT INTO hosts_new (hostname, ip, architecture, plataform, processor, so, distribution, mem_total, mem_free, up_time, mac_address, created_at) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (hostname, ip, architecture, plataform, processor, so, distribution, mem_total, mem_free, up_time, mac_address, created_at))
             mysql.connection.commit()
             cur.close
 
@@ -210,33 +351,133 @@ def add_host():
 def update_infos(servername):
     try:
 
-        url = str(request.json.get('url',None))
         cluster = str(request.json.get('cluster',None))
-        publication = str(request.json.get('publication',None))
-        environnment = str(request.json.get('environnment', None))
+        url = str(request.json.get('url',None))
+        scope = str(request.json.get('scope',None))
         middleware = str(request.json.get('middleware',None))
         framework = str(request.json.get('framework',None))
         app_language = str(request.json.get('app_language',None))
-        priority = str(request.json.get('priority',None))
-        risk = str(request.json.get('risk',None))
-        acronym = str(request.json.get('acronym',None))
-        datacenter = str(request.json.get('datacenter',None))
+        environnment = str(request.json.get('environnment', None))
+        db_server = str(request.json.get('db_server',None))
+        db_name = str(request.json.get('db_name',None))
+        db_schema = str(request.json.get('db_schema',None))
+        db_user = str(request.json.get('db_user',None))
+        db_type = str(request.json.get('db_type',None))
+        kubernetes = str(request.json.get('kubernetes',None))
+        arch_ref = str(request.json.get('arch_ref',None))
+        monitoring_z = str(request.json.get('monitoring_z',None))
+        situation = str(request.json.get('situation',None))
+        backup = str(request.json.get('backup',None))
         repository = str(request.json.get('repository',None))
-        national_cjf = str(request.json.get('national_cjf',None))
+        type = str(request.json.get('type',None))
+        auth = str(request.json.get('auth',None))
+        permission = str(request.json.get('permission',None))
+        responsible_cad = str(request.json.get('responsible_cad',None))
+        responsible_permission = str(request.json.get('responsible_permission',None))
+        manager = str(request.json.get('manager',None))
+        manager_substitute = str(request.json.get('manager_substitute',None))
+        unit = str(request.json.get('unit',None))
+        concierge_manager = str(request.json.get('concierge_manager',None))
+        sei_processor = str(request.json.get('sei_processor',None))
+        observation = str(request.json.get('observation',None))
+        priority = str(request.json.get('priority',None))
+        acronym = str(request.json.get('acronym',None))
+        sti_action = str(request.json.get('sti_action',None))
+        name = str(request.json.get('name',None))
+        datacenter = str(request.json.get('datacenter',None))
         goal = str(request.json.get('goal',None))
+        national_cjf = str(request.json.get('national_cjf',None))
+
+
+
         updated_at = str(request.json.get('updated_at',None))
 
         cur = mysql.connection.cursor()
         
         cur.execute("UPDATE hosts SET updated_at='{}' WHERE hostname='{}'".format(updated_at, servername))
 
-        cur.execute("""UPDATE hosts_aditional_infra
-                    SET environnment='{}', url='{}', cluster='{}', publication='{}', midleware='{}', framework='{}', app_language='{}' 
-                    WHERE hostname='{}'""".format(environnment, url, cluster, publication, middleware, framework, app_language, servername))
+        # cur.execute("""UPDATE hosts_aditional_infra
+        #             SET environnment='{}', url='{}', cluster='{}', publication='{}', midleware='{}', framework='{}', app_language='{}' 
+        #             WHERE hostname='{}'""".format(environnment, url, cluster, publication, middleware, framework, app_language, servername))
 
-        cur.execute("""UPDATE hosts_business
-                    SET priority='{}', risk='{}', acronym='{}', goal='{}', datacenter='{}', repository='{}', national_cjf='{}'
-                    WHERE hostname='{}'""".format(priority, risk, acronym, goal, datacenter, repository, national_cjf, servername))
+        # cur.execute("""UPDATE hosts_business
+        #             SET priority='{}', risk='{}', acronym='{}', goal='{}', datacenter='{}', repository='{}', national_cjf='{}'
+        #             WHERE hostname='{}'""".format(priority, risk, acronym, goal, datacenter, repository, national_cjf, servername))
+
+        cur.execute("""UPDATE hosts_aditional_infra_new
+                    SET cluster='{}', 
+                        url='{}', 
+                        scope='{}', 
+                        middleware='{}', 
+                        framework='{}', 
+                        app_language='{}', 
+                        environnment='{}' 
+                        db_server='{}', 
+                        db_name='{}', 
+                        db_schema='{}', 
+                        db_user='{}', 
+                        db_type='{}', 
+                        kubernetes='{}' 
+                        arch_ref='{}', 
+                        monitoring_z='{}', 
+                        situation='{}', 
+                        backup='{}', 
+                        repository='{}', 
+                        type='{}', 
+                    WHERE hostname='{}'""".format(cluster,
+                                                 url,
+                                                 scope,
+                                                 middleware,
+                                                 framework,
+                                                 app_language,
+                                                 environnment,
+                                                 db_server,
+                                                 db_name,
+                                                 db_schema,
+                                                 db_user,
+                                                 db_type,
+                                                 kubernetes,
+                                                 arch_ref,
+                                                 monitoring_z,
+                                                 situation,
+                                                 backup,
+                                                 repository,
+                                                 type,
+                                                 servername
+                                                 ))
+
+        cur.execute("""UPDATE hosts_business_new
+                    SET auth='{}',
+                        permission='{}',
+                        responsible_cad='{}',
+                        responsible_permission='{}',
+                        manager='{}',
+                        manager_substitute='{}',
+                        unit='{}'
+                        concierge_manager='{}',
+                        sei_processor='{}',
+                        observation='{}',
+                        acronym='{}',
+                        sti_action='{}',
+                        name='{}'
+                        datacenter='{}',
+                        goal='{}',
+                    WHERE hostname='{}'""".format(auth,
+                                                 permission,
+                                                 responsible_cad,
+                                                 responsible_permission,
+                                                 manager,
+                                                 manager_substitute,
+                                                 unit,
+                                                 concierge_manager,
+                                                 sei_processor,
+                                                 observation,
+                                                 acronym,
+                                                 sti_action,
+                                                 name,
+                                                 datacenter,
+                                                 goal,
+                                                 servername))
 
         mysql.connection.commit()
 
