@@ -148,7 +148,7 @@ def getHostsByUsername(servername):
                             FROM hosts_new h
                             INNER JOIN hosts_aditional_infra_new hi ON h.hostname = hi.hostname
                             INNER JOIN hosts_business_new hb ON h.hostname = hb.hostname
-    #                       WHERE h.hostname = "{}"
+                            WHERE h.hostname = "{}"
                             ORDER BY h.id""".format(servername))
         # cur.execute("""SELECT hosts.id, hosts.hostname, hosts.ip, hosts.architecture, hosts.plataform, 
         #                         hosts.processor, hosts.so, hosts.distribution, hosts.mem_total, hosts.mem_free, 
