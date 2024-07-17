@@ -23,7 +23,7 @@ def hosts():
                                 hi.backup,hi.repository,hi.type,hb.auth,hb.permission,hb.responsible_cad,
                                 hb.responsible_permission,hb.manager,hb.manager_substitute,hb.unit,hb.concierge_manager,
                                 hb.sei_processor,hb.observation,hb.priority,hb.acronym,hb.sti_action,hb.datacenter,
-                                hb.goal,hb.national_cjf,hi.app_language
+                                hb.goal,hb.national_cjf,hi.app_language,hb.name
                         FROM hosts_new h
                         INNER JOIN hosts_aditional_infra_new hi ON h.hostname = hi.hostname
                         INNER JOIN hosts_business_new hb ON h.hostname = hb.hostname
@@ -93,6 +93,7 @@ def hosts():
                 'goal': result[46],
                 'national_cjf': result[47],
                 'app_language': result[48],
+                'name': result[49],
             }
             # content = {
             #     'id': result[0],
@@ -146,7 +147,7 @@ def getHostsByUsername(servername):
                                 hi.backup,hi.repository,hi.type,hb.auth,hb.permission,hb.responsible_cad,
                                 hb.responsible_permission,hb.manager,hb.manager_substitute,hb.unit,hb.concierge_manager,
                                 hb.sei_processor,hb.observation,hb.priority,hb.acronym,hb.sti_action,hb.datacenter,
-                                hb.goal,hb.national_cjf,hi.app_language
+                                hb.goal,hb.national_cjf,hi.app_language,hb.name
                             FROM hosts_new h
                             INNER JOIN hosts_aditional_infra_new hi ON h.hostname = hi.hostname
                             INNER JOIN hosts_business_new hb ON h.hostname = hb.hostname
@@ -218,6 +219,7 @@ def getHostsByUsername(servername):
                 'goal': result[46],
                 'national_cjf': result[47],
                 'app_language': result[48],
+                'name': result[49],
             }
             # content = {
             #     'id': result[0],
