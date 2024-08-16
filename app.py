@@ -423,7 +423,7 @@ def update_infos(servername):
                         db_schema='{}', 
                         db_user='{}', 
                         db_type='{}', 
-                        kubernetes='{}' 
+                        kubernetes='{}',
                         arch_ref='{}', 
                         monitoring_z='{}', 
                         situation='{}', 
@@ -465,7 +465,7 @@ def update_infos(servername):
                         observation='{}',
                         acronym='{}',
                         sti_action='{}',
-                        name='{}'
+                        name='{}',
                         datacenter='{}',
                         goal='{}',
                         national_cjf='{}',
