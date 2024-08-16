@@ -417,7 +417,7 @@ def update_infos(servername):
                         middleware='{}', 
                         framework='{}', 
                         app_language='{}', 
-                        environnment='{}' 
+                        environnment='{}',
                         db_server='{}', 
                         db_name='{}', 
                         db_schema='{}', 
@@ -429,7 +429,7 @@ def update_infos(servername):
                         situation='{}', 
                         backup='{}', 
                         repository='{}', 
-                        type='{}', 
+                        type='{}'
                     WHERE hostname='{}'""".format(cluster,
                                                  url,
                                                  scope,
@@ -459,7 +459,7 @@ def update_infos(servername):
                         responsible_permission='{}',
                         manager='{}',
                         manager_substitute='{}',
-                        unit='{}'
+                        unit='{}',
                         concierge_manager='{}',
                         sei_processor='{}',
                         observation='{}',
@@ -469,7 +469,7 @@ def update_infos(servername):
                         datacenter='{}',
                         goal='{}',
                         national_cjf='{}',
-                        priority='{}',
+                        priority='{}'
                     WHERE hostname='{}'""".format(auth,
                                                  permission,
                                                  responsible_cad,
