@@ -468,6 +468,8 @@ def update_infos(servername):
                         name='{}'
                         datacenter='{}',
                         goal='{}',
+                        national_cjf='{}',
+                        priority='{}',
                     WHERE hostname='{}'""".format(auth,
                                                  permission,
                                                  responsible_cad,
@@ -483,6 +485,8 @@ def update_infos(servername):
                                                  name,
                                                  datacenter,
                                                  goal,
+                                                 national_cjf,
+                                                 priority,
                                                  servername))
 
         mysql.connection.commit()
@@ -492,6 +496,3 @@ def update_infos(servername):
         return jsonify(error), 400
     finally:
         cur.close
-
-
-
