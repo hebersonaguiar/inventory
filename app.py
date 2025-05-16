@@ -12,7 +12,7 @@ application.secret_key = "flash message"
 
 mysql = connection.get_connection(application)
 
-@app.route('/health')
+@application.route('/health')
 def health_check():
     return jsonify(status="ok"), 200
 
