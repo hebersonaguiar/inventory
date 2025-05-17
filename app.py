@@ -20,7 +20,8 @@ def health_check():
 def hosts():
     try:
         cur = mysql.connection.cursor()
-        cur.execute(""" SELECT 
+        cur.execute(""" SELECT
+                            h.id,
                             h.hostname,
                             h.ipv4,
                             h.arch,
@@ -78,6 +79,7 @@ def hosts():
                 'mac_address': result[10],
                 'created_at': result[11],
                 'updated_at': result[12],
+            }
             ### SQL STATMENT USED TO CJF, TO BE DELETED
             # content = {
             #     'id': result[0],
@@ -131,7 +133,6 @@ def hosts():
             #     'app_language': result[48],
             #     'name': result[49],
             ### SQL STATMENT USED TO CJF, TO BE DELETED
-            }
             # content = {
             #     'id': result[0],
             #     'hostname': result[1],
