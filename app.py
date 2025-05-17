@@ -356,7 +356,7 @@ def add_host():
                                 up_time, 
                                 mac_address, 
                                 created_at
-                                ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)""", 
+                                ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)""", 
                                 (hostname, ipv4, arch, processor, so, distribution, mem_total, mem_free, up_time, mac_address, created_at))
             mysql.connection.commit()
             cur.close
