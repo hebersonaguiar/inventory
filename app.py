@@ -271,9 +271,8 @@ def add_host():
     try:
 
         hostname = str(request.json.get('hostname', None))
-        ip = str(request.json.get('ip', None))
-        architecture = str(request.json.get('architecture', None))
-        plataform = str(request.json.get('plataform', None))
+        ipv4 = str(request.json.get('ipv4', None))
+        arch = str(request.json.get('arch', None))
         processor = str(request.json.get('processor', None))
         so = str(request.json.get('so', None))
         distribution = str(request.json.get('distribution', None))
@@ -307,18 +306,18 @@ def add_host():
         if hostname in content:
             print("Atualizando: ", hostname)
             curUpdate = mysql.connection.cursor()
-            curUpdate.execute("""UPDATE hosts_new
-                        SET ip = '{}', 
-                        architecture = '{}', 
-                        plataform = '{}', 
+            curUpdate.execute("""UPDATE hosts
+                        SET ipv4 = '{}', 
+                        arch = '{}', 
                         processor = '{}', 
                         so = '{}', 
                         distribution = '{}', 
                         mem_total = '{}', 
                         mem_free = '{}', 
                         up_time = '{}', 
-                        mac_address = '{}' 
-                        WHERE hostname = '{}'""".format(ip, architecture, plataform, processor, so, distribution, mem_total, mem_free, up_time, mac_address, hostname))
+                        mac_address = '{}',
+                        updated_at = '{}' 
+                        WHERE hostname = '{}'""".format(ipv4, arch, processor, so, distribution, mem_total, mem_free, up_time, mac_address, created_at, hostname))
             # curUpdate.execute("""UPDATE hosts
             #             SET ip = '{}', 
             #             architecture = '{}', 
@@ -341,13 +340,24 @@ def add_host():
             print("Adicionando: ", hostname)
        
             cur = mysql.connection.cursor()
-            cur.execute("INSERT INTO hosts_business_new (hostname) VALUES ('{}')".format(hostname))
-            # cur.execute("INSERT INTO hosts_business (hostname) VALUES ('{}')".format(hostname))
+            # cur.execute("INSERT INTO hosts_business_new (hostname) VALUES ('{}')".format(hostname))
 
-            cur.execute("INSERT INTO hosts_aditional_infra_new (hostname) VALUES ('{}')".format(hostname))
-            # cur.execute("INSERT INTO hosts_aditional_infra (hostname) VALUES ('{}')".format(hostname))
+            # cur.execute("INSERT INTO hosts_aditional_infra_new (hostname) VALUES ('{}')".format(hostname))
 
-            cur.execute("INSERT INTO hosts_new (hostname, ip, architecture, plataform, processor, so, distribution, mem_total, mem_free, up_time, mac_address, created_at) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (hostname, ip, architecture, plataform, processor, so, distribution, mem_total, mem_free, up_time, mac_address, created_at))
+            cur.execute("""INSERT INTO hosts_new (
+                                hostname, 
+                                ipv4, 
+                                arch,
+                                processor, 
+                                so, 
+                                distribution, 
+                                mem_total, 
+                                mem_free, 
+                                up_time, 
+                                mac_address, 
+                                created_at
+                                ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)""", 
+                                (hostname, ipv4, arch, processor, so, distribution, mem_total, mem_free, up_time, mac_address, created_at))
             mysql.connection.commit()
             cur.close
 

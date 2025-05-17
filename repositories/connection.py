@@ -4,7 +4,7 @@ def get_connection(app):
     app.config['MYSQL_HOST'] = "mysql"
     app.config['MYSQL_USER'] = "root"
     app.config['MYSQL_PASSWORD'] = "my-secret-pw"
-    app.config['MYSQL_DB'] = "inventory"
+    app.config['MYSQL_DB'] = "infrasa_inventory"
 
     mysql = MySQL(app)
     
