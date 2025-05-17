@@ -20,8 +20,7 @@ def health_check():
 def hosts():
     try:
         cur = mysql.connection.cursor()
-        cur.execute("""SELECT
-                            h.id,
+        cur.execute("""SELECT 
                             h.hostname,
                             h.ipv4,
                             h.arch,
@@ -33,8 +32,18 @@ def hosts():
                             h.up_time,
                             h.mac_address,
                             h.created_at,
-                            h.updated_at
-                        FROM hosts h;
+                            h.updated_at,
+                            hi.env,
+                            hi.url,
+                            hi.is_internal,
+                            hi.midleware,
+                            hi.app_language,
+                            hi.app_system,
+                            hi.location,
+                            hi.notes
+                        FROM hosts h
+                        INNER JOIN hosts_aditional_infos hi ON h.hostname = hi.hostname
+                        ORDER BY h.id;
                     """)
         ### SQL STATMENT USED TO CJF, TO BE DELETED
         # cur.execute("""SELECT h.id,h.hostname,h.ip,h.architecture,h.plataform,h.processor,h.so,h.distribution,h.mem_total,
@@ -79,6 +88,14 @@ def hosts():
                 'mac_address': result[10],
                 'created_at': result[11],
                 'updated_at': result[12],
+                'env': result[13],
+                'url': result[14],
+                'is_internal': result[15],
+                'midleware': result[16],
+                'app_language': result[17],
+                'app_system': result[17],
+                'location': result[18],
+                'notes': result[19],
             }
             ### SQL STATMENT USED TO CJF, TO BE DELETED
             # content = {
@@ -179,8 +196,7 @@ def getHostsByUsername(servername):
     try:
         cur = mysql.connection.cursor()
 
-        cur.execute("""SELECT
-                            h.id,
+        cur.execute("""SELECT 
                             h.hostname,
                             h.ipv4,
                             h.arch,
@@ -192,8 +208,17 @@ def getHostsByUsername(servername):
                             h.up_time,
                             h.mac_address,
                             h.created_at,
-                            h.updated_at
+                            h.updated_at,
+                            hi.env,
+                            hi.url,
+                            hi.is_internal,
+                            hi.midleware,
+                            hi.app_language,
+                            hi.app_system,
+                            hi.location,
+                            hi.notes
                         FROM hosts h
+                        INNER JOIN hosts_aditional_infos hi ON h.hostname = hi.hostname
                         WHERE h.hostname = "{}"
                         ORDER BY h.id""".format(servername))
         ### SQL STATMENT USED TO CJF, TO BE DELETED
@@ -241,6 +266,14 @@ def getHostsByUsername(servername):
                 'mac_address': result[10],
                 'created_at': result[11],
                 'updated_at': result[12],
+                'env': result[13],
+                'url': result[14],
+                'is_internal': result[15],
+                'midleware': result[16],
+                'app_language': result[17],
+                'app_system': result[17],
+                'location': result[18],
+                'notes': result[19],
             }
             # content = {
             #     'id': result[0],
@@ -360,7 +393,7 @@ def add_host():
             cur = mysql.connection.cursor()
             # cur.execute("INSERT INTO hosts_business_new (hostname) VALUES ('{}')".format(hostname))
 
-            # cur.execute("INSERT INTO hosts_aditional_infra_new (hostname) VALUES ('{}')".format(hostname))
+            cur.execute("INSERT INTO hosts_aditional_infos (hostname) VALUES ('{}')".format(hostname))
 
             cur.execute("""INSERT INTO hosts (
                                 hostname, 
