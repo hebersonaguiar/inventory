@@ -20,18 +20,35 @@ def health_check():
 def hosts():
     try:
         cur = mysql.connection.cursor()
-        cur.execute("""SELECT h.id,h.hostname,h.ip,h.architecture,h.plataform,h.processor,h.so,h.distribution,h.mem_total,
-                                h.mem_free,h.up_time,h.mac_address,h.created_at,h.updated_at,hi.cluster,hi.url,hi.scope,
-                                hi.middleware,hi.framework,hi.environnment,hi.db_server,hi.db_name,hi.db_schema,
-                                hi.db_user,hi.db_type,hi.kubernetes,hi.arch_ref,hi.monitoring_z,hi.situation,
-                                hi.backup,hi.repository,hi.type,hb.auth,hb.permission,hb.responsible_cad,
-                                hb.responsible_permission,hb.manager,hb.manager_substitute,hb.unit,hb.concierge_manager,
-                                hb.sei_processor,hb.observation,hb.priority,hb.acronym,hb.sti_action,hb.datacenter,
-                                hb.goal,hb.national_cjf,hi.app_language,hb.name
-                        FROM hosts_new h
-                        INNER JOIN hosts_aditional_infra_new hi ON h.hostname = hi.hostname
-                        INNER JOIN hosts_business_new hb ON h.hostname = hb.hostname
-                        ORDER BY h.id""")
+        cur.execute(""" SELECT 
+                            h.hostname,
+                            h.ipv4,
+                            h.arch,
+                            h.processor,
+                            h.so,
+                            h.distribution,
+                            h.mem_total,
+                            h.mem_free,
+                            h.up_time,
+                            h.mac_address,
+                            h.created_at,
+                            h.updated_at
+                        FROM hosts h;
+                    """)
+        ### SQL STATMENT USED TO CJF, TO BE DELETED
+        # cur.execute("""SELECT h.id,h.hostname,h.ip,h.architecture,h.plataform,h.processor,h.so,h.distribution,h.mem_total,
+        #                         h.mem_free,h.up_time,h.mac_address,h.created_at,h.updated_at,hi.cluster,hi.url,hi.scope,
+        #                         hi.middleware,hi.framework,hi.environnment,hi.db_server,hi.db_name,hi.db_schema,
+        #                         hi.db_user,hi.db_type,hi.kubernetes,hi.arch_ref,hi.monitoring_z,hi.situation,
+        #                         hi.backup,hi.repository,hi.type,hb.auth,hb.permission,hb.responsible_cad,
+        #                         hb.responsible_permission,hb.manager,hb.manager_substitute,hb.unit,hb.concierge_manager,
+        #                         hb.sei_processor,hb.observation,hb.priority,hb.acronym,hb.sti_action,hb.datacenter,
+        #                         hb.goal,hb.national_cjf,hi.app_language,hb.name
+        #                 FROM hosts_new h
+        #                 INNER JOIN hosts_aditional_infra_new hi ON h.hostname = hi.hostname
+        #                 INNER JOIN hosts_business_new hb ON h.hostname = hb.hostname
+        #                 ORDER BY h.id""")
+        ### SQL STATMENT USED TO CJF, TO BE DELETED
         # cur.execute("""SELECT hosts.id, hosts.hostname, hosts.ip, hosts.architecture, hosts.plataform, 
         #                         hosts.processor, hosts.so, hosts.distribution, hosts.mem_total, hosts.mem_free, 
         #                         hosts.up_time, hosts.mac_address, hosts.created_at, hosts.updated_at, 
@@ -50,54 +67,70 @@ def hosts():
             content = {
                 'id': result[0],
                 'hostname': result[1],
-                'ip': result[2],
-                'architecture': result[3],
-                'plataform': result[4],
-                'processor': result[5],
-                'so': result[6],
-                'distribution': result[7],
-                'mem_total': result[8],
-                'mem_free': result[9],
-                'up_time': result[10],
-                'mac_address': result[11],
-                'created_at': result[12],
-                'updated_at': result[13],
-                'cluster': result[14],
-                'url': result[15],
-                'scope': result[16],
-                'middleware': result[17],
-                'framework': result[18],
-                'environnment': result[19],
-                'db_server': result[20],
-                'db_name': result[21],
-                'db_schema': result[22],
-                'db_user': result[23],
-                'db_type': result[24],
-                'kubernetes': result[25],
-                'arch_ref': result[26],
-                'monitoring_z': result[27],
-                'situation': result[28],
-                'backup': result[29],
-                'repository': result[30],
-                'type': result[31],
-                'auth': result[32],
-                'permission': result[33],
-                'responsible_cad': result[34],
-                'responsible_permission': result[35],
-                'manager': result[36],
-                'manager_substitute': result[37],
-                'unit': result[38],
-                'concierge_manager': result[39],
-                'sei_processor': result[40],
-                'observation': result[41],
-                'priority': result[42],
-                'acronym': result[43],
-                'sti_action': result[44],
-                'datacenter': result[45],
-                'goal': result[46],
-                'national_cjf': result[47],
-                'app_language': result[48],
-                'name': result[49],
+                'ipv4': result[2],
+                'arch': result[3],
+                'processor': result[4],
+                'so': result[5],
+                'distribution': result[6],
+                'mem_total': result[7],
+                'mem_free': result[8],
+                'up_time': result[9],
+                'mac_address': result[10],
+                'created_at': result[11],
+                'updated_at': result[12],
+            ### SQL STATMENT USED TO CJF, TO BE DELETED
+            # content = {
+            #     'id': result[0],
+            #     'hostname': result[1],
+            #     'ip': result[2],
+            #     'architecture': result[3],
+            #     'plataform': result[4],
+            #     'processor': result[5],
+            #     'so': result[6],
+            #     'distribution': result[7],
+            #     'mem_total': result[8],
+            #     'mem_free': result[9],
+            #     'up_time': result[10],
+            #     'mac_address': result[11],
+            #     'created_at': result[12],
+            #     'updated_at': result[13],
+            #     'cluster': result[14],
+            #     'url': result[15],
+            #     'scope': result[16],
+            #     'middleware': result[17],
+            #     'framework': result[18],
+            #     'environnment': result[19],
+            #     'db_server': result[20],
+            #     'db_name': result[21],
+            #     'db_schema': result[22],
+            #     'db_user': result[23],
+            #     'db_type': result[24],
+            #     'kubernetes': result[25],
+            #     'arch_ref': result[26],
+            #     'monitoring_z': result[27],
+            #     'situation': result[28],
+            #     'backup': result[29],
+            #     'repository': result[30],
+            #     'type': result[31],
+            #     'auth': result[32],
+            #     'permission': result[33],
+            #     'responsible_cad': result[34],
+            #     'responsible_permission': result[35],
+            #     'manager': result[36],
+            #     'manager_substitute': result[37],
+            #     'unit': result[38],
+            #     'concierge_manager': result[39],
+            #     'sei_processor': result[40],
+            #     'observation': result[41],
+            #     'priority': result[42],
+            #     'acronym': result[43],
+            #     'sti_action': result[44],
+            #     'datacenter': result[45],
+            #     'goal': result[46],
+            #     'national_cjf': result[47],
+            #     'app_language': result[48],
+            #     'name': result[49],
+            ### SQL STATMENT USED TO CJF, TO BE DELETED
             }
             # content = {
             #     'id': result[0],
@@ -266,6 +299,7 @@ def getHostsByUsername(servername):
     finally:
         cur.close
 
+### ADD HOSTS INFOS, IF EXISTIS, UPDATE
 @application.route('/hosts', methods=['POST'])
 def add_host():
     try:
@@ -367,6 +401,8 @@ def add_host():
     # finally:
     #     cur.close
 
+
+### UPDATE INVENTORY
 @application.route('/v1/updateiventory/<string:servername>', methods=['PUT'])
 def update_infos(servername):
     try:
