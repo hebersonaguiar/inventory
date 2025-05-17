@@ -180,7 +180,7 @@ def getHostsByUsername(servername):
         cur = mysql.connection.cursor()
 
         cur.execute("""SELECT
-                            h.id 
+                            h.id,
                             h.hostname,
                             h.ipv4,
                             h.arch,
