@@ -23,7 +23,7 @@ def hosts():
         cur.execute("""SELECT 
                             h.id,
                             h.hostname,
-                            h.ipv4
+                            h.ipv4,
                             h.arch,
                             h.processor,
                             h.so,
@@ -200,7 +200,7 @@ def getHostsByUsername(servername):
         cur.execute("""SELECT 
                             h.id,
                             h.hostname,
-                            h.ipv4
+                            h.ipv4,
                             h.arch,
                             h.processor,
                             h.so,
