@@ -286,7 +286,7 @@ def add_host():
 
         curCheckHostname = mysql.connection.cursor()
         curCheckHostname.execute("""SELECT hostname 
-                            FROM hosts_new h
+                            FROM hosts h
                             WHERE h.hostname = "{}"
                     """.format(hostname))
         # curCheckHostname.execute("""SELECT hostname 
@@ -344,7 +344,7 @@ def add_host():
 
             # cur.execute("INSERT INTO hosts_aditional_infra_new (hostname) VALUES ('{}')".format(hostname))
 
-            cur.execute("""INSERT INTO hosts_new (
+            cur.execute("""INSERT INTO hosts (
                                 hostname, 
                                 ipv4, 
                                 arch,
