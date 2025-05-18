@@ -18,6 +18,9 @@ def process_message(ch, method, properties, body):
         up_time = str(data.get('up_time'))
         mac_address = str(data.get('mac_address'))
 
+        type(hostname)
+        type(ipv4)
+
         insert_inventory(hostname, ipv4, arch, processor, so, distribution, mem_total, mem_free, up_time, mac_address)
 
 
