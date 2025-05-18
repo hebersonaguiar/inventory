@@ -18,6 +18,7 @@ def process_message(ch, method, properties, body):
         up_time = str(data.get('up_time'))
         mac_address = str(data.get('mac_address'))
 
+        print("Print types")
         type(hostname)
         type(ipv4)
 
