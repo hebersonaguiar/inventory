@@ -194,19 +194,19 @@ def receive_inventory():
 
 ### ADD HOSTS INFOS, IF EXISTIS, UPDATE
 @application.route('/api/v1/hosts', methods=['POST'])
-def add_host():
+def insert_inventory(hostname, ipv4, arch, processor, so, distribution, mem_total, mem_free, up_time, mac_address):
     try:
 
-        hostname = str(request.json.get('hostname', None))
-        ipv4 = str(request.json.get('ipv4', None))
-        arch = str(request.json.get('arch', None))
-        processor = str(request.json.get('processor', None))
-        so = str(request.json.get('so', None))
-        distribution = str(request.json.get('distribution', None))
-        mem_total = str(request.json.get('mem_total', None))
-        mem_free = str(request.json.get('mem_free', None))
-        up_time = str(request.json.get('up_time', None))
-        mac_address = str(request.json.get('mac_address', None))
+        # hostname = str(request.json.get('hostname', None))
+        # ipv4 = str(request.json.get('ipv4', None))
+        # arch = str(request.json.get('arch', None))
+        # processor = str(request.json.get('processor', None))
+        # so = str(request.json.get('so', None))
+        # distribution = str(request.json.get('distribution', None))
+        # mem_total = str(request.json.get('mem_total', None))
+        # mem_free = str(request.json.get('mem_free', None))
+        # up_time = str(request.json.get('up_time', None))
+        # mac_address = str(request.json.get('mac_address', None))
         
         now = datetime.datetime.now()
         created_at = now.strftime("%d-%m-%Y %H:%M")
