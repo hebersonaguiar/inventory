@@ -4,6 +4,7 @@ from flask_cors import CORS
 from flask_jsonpify import jsonify
 from repositories import connection
 import json, datetime
+from producer import send_to_queue
 
 application = Flask(__name__)
 api = Api(application)
@@ -158,6 +159,38 @@ def getHostsByUsername(servername):
         return jsonify(error), 400
     finally:
         cur.close
+
+
+@application.route('/api/v1/hosts/queue', methods=['POST'])
+def receive_inventory():
+    hostname = str(request.json.get('hostname', None))
+    ipv4 = str(request.json.get('ipv4', None))
+    arch = str(request.json.get('arch', None))
+    processor = str(request.json.get('processor', None))
+    so = str(request.json.get('so', None))
+    distribution = str(request.json.get('distribution', None))
+    mem_total = str(request.json.get('mem_total', None))
+    mem_free = str(request.json.get('mem_free', None))
+    up_time = str(request.json.get('up_time', None))
+    mac_address = str(request.json.get('mac_address', None))
+
+    data = {
+        'hostname': hostname,
+        'ipv4': ipv4,
+        'arch': arch,
+        'processor': processor,
+        'so': so,
+        'distribution': distribution,
+        'mem_total': mem_total,
+        'mem_free': mem_free,
+        'up_time': up_time,
+        'mac_address': mac_address
+    }
+
+    ## SEND INFOS TO QUEUE
+    send_to_queue(data)
+
+    return jsonify({'status': 'Data send to queue'}), 202
 
 ### ADD HOSTS INFOS, IF EXISTIS, UPDATE
 @application.route('/api/v1/hosts', methods=['POST'])
