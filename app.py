@@ -202,6 +202,17 @@ def insert_inventory(hostname, ipv4, arch, processor, so, distribution, mem_tota
         
         print(type(hostname))
 
+        hostname = str(hostname)
+        ipv4 = str(ipv4)
+        arch = str(arch)
+        processor = str(processor)
+        so = str(so)
+        distribution = str(distribution)
+        mem_total = str(mem_total)
+        mem_free = str(mem_free)
+        up_time = str(up_time)
+        mac_address = str(mac_address)
+
         # hostname = str(request.json.get('hostname', None))
         # ipv4 = str(request.json.get('ipv4', None))
         # arch = str(request.json.get('arch', None))
