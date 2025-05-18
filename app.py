@@ -197,6 +197,11 @@ def receive_inventory():
 def insert_inventory(hostname, ipv4, arch, processor, so, distribution, mem_total, mem_free, up_time, mac_address):
     try:
 
+
+        print("Print Types App")
+        
+        type(hostname)
+
         # hostname = str(request.json.get('hostname', None))
         # ipv4 = str(request.json.get('ipv4', None))
         # arch = str(request.json.get('arch', None))
