@@ -19,8 +19,7 @@ def process_message(ch, method, properties, body):
         mac_address = str(data.get('mac_address'))
 
         print("Print types")
-        type(hostname)
-        type(ipv4)
+        print(type(hostname))
 
         insert_inventory(hostname, ipv4, arch, processor, so, distribution, mem_total, mem_free, up_time, mac_address)
 

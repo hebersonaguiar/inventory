@@ -200,7 +200,7 @@ def insert_inventory(hostname, ipv4, arch, processor, so, distribution, mem_tota
 
         print("Print Types App")
         
-        type(hostname)
+        print(type(hostname))
 
         # hostname = str(request.json.get('hostname', None))
         # ipv4 = str(request.json.get('ipv4', None))
