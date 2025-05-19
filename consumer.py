@@ -1,6 +1,7 @@
 import pika
 import json
 import logging
+import traceback
 from app import insert_inventory
 
 def process_message(ch, method, properties, body):
