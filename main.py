@@ -1,16 +1,31 @@
 import threading
 import app
 import pika
+import os
 from consumer import process_message
+from repositories import connection as get_rabbitmq_connection
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = app.application
 
 def start_consumer():
-	connection = pika.BlockingConnection(pika.ConnectionParameters('rabbitmq'))
+
+
+	connection = get_rabbitmq_connection()
 	channel = connection.channel()
-	channel.queue_declare(queue='infrasa_inventory_queue', durable=True)
+	queue_name = os.getenv("RABBITMQ_QUEUE")
+
+	channel.queue_declare(queue=queue_name, durable=True)
 	channel.basic_qos(prefetch_count=1)
-	channel.basic_consume(queue='infrasa_inventory_queue', on_message_callback=process_message)
+	channel.basic_consume(queue=queue_name, on_message_callback=process_message)
+
+	# connection = pika.BlockingConnection(pika.ConnectionParameters(os.getenv("RABBITMQ_HOST")))
+	# channel = connection.channel()
+	# channel.queue_declare(queue=os.getenv("RABBITMQ_QUEUE"), durable=True)
+	# channel.basic_qos(prefetch_count=1)
+	# channel.basic_consume(queue=os.getenv("RABBITMQ_QUEUE"), on_message_callback=process_message)
 
 	with app.app_context():
 		try:
