@@ -23,11 +23,6 @@ def get_connection(app):
 # Conexão com RabbitMQ
 # ----------------------
 def get_rabbitmq_connection():
-    print(os.getenv("RABBITMQ_USER"))
-    print(os.getenv("RABBITMQ_PASSWORD"))
-    print(os.getenv("RABBITMQ_HOST"))
-    print(os.getenv("RABBITMQ_PORT"))
-
     credentials = pika.PlainCredentials(
         username=os.getenv("RABBITMQ_USER"),
         password=os.getenv("RABBITMQ_PASSWORD")
