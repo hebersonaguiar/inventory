@@ -13,8 +13,8 @@ app = app.application
 def start_consumer():
 
 
-	connection = get_rabbitmq_connection()
-	channel = connection.channel()
+	conn = connection.get_rabbitmq_connection()
+	channel = conn.channel()
 	queue_name = os.getenv("RABBITMQ_QUEUE")
 
 	channel.queue_declare(queue=queue_name, durable=True)
