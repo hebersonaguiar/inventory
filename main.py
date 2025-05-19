@@ -3,7 +3,7 @@ import app
 import pika
 import os
 from consumer import process_message
-from repositories import connection as get_rabbitmq_connection
+from repositories.connection import get_rabbitmq_connection
 from dotenv import load_dotenv
 
 load_dotenv()
