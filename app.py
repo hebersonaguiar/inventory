@@ -193,7 +193,7 @@ def receive_inventory():
     return jsonify({'status': 'Data send to queue'}), 202
 
 ### ADD HOSTS INFOS, IF EXISTIS, UPDATE
-@application.route('/api/v1/hosts', methods=['POST'])
+# @application.route('/api/v1/hosts', methods=['POST'])
 def insert_inventory(hostname: str, ipv4: str, arch: str, processor: str, so: str, distribution: str, mem_total: str, mem_free: str, up_time: str, mac_address: str):
     try:
 
@@ -267,9 +267,9 @@ def insert_inventory(hostname: str, ipv4: str, arch: str, processor: str, so: st
             mysql.connection.commit()
             cur.close
 
-        return jsonify({'host_add': 'true'}), 200
+        # return jsonify({'host_add': 'true'}), 200
     except Exception as error:
-        return jsonify(error), 400
+        return print("error ao inserir o dado no banco")
 
 
 ### UPDATE INVENTORY ADDITIONAL INFOS
