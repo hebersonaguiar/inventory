@@ -21,6 +21,16 @@ def process_message(ch, method, properties, body):
         print("Print Consumer")
         
         print(hostname)
+        print(ipv4)
+        print(arch)
+        print(processor)
+        print(so)
+        print(distribution)
+        print(mem_total)
+        print(mem_free)
+        print(up_time)
+        print(mac_address)
+
 
         insert_inventory(hostname, ipv4, arch, processor, so, distribution, mem_total, mem_free, up_time, mac_address)
 

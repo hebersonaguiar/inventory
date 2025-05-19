@@ -194,7 +194,7 @@ def receive_inventory():
 
 ### ADD HOSTS INFOS, IF EXISTIS, UPDATE
 @application.route('/api/v1/hosts', methods=['POST'])
-def insert_inventory(hostname, ipv4, arch, processor, so, distribution, mem_total, mem_free, up_time, mac_address):
+def insert_inventory(hostname: str, ipv4: str, arch: str, processor: str, so: str, distribution: str, mem_total: str, mem_free: str, up_time: str, mac_address: str):
     try:
 
 
