@@ -21,12 +21,6 @@ def start_consumer():
 	channel.basic_qos(prefetch_count=1)
 	channel.basic_consume(queue=queue_name, on_message_callback=process_message)
 
-	# connection = pika.BlockingConnection(pika.ConnectionParameters(os.getenv("RABBITMQ_HOST")))
-	# channel = connection.channel()
-	# channel.queue_declare(queue=os.getenv("RABBITMQ_QUEUE"), durable=True)
-	# channel.basic_qos(prefetch_count=1)
-	# channel.basic_consume(queue=os.getenv("RABBITMQ_QUEUE"), on_message_callback=process_message)
-
 	with app.app_context():
 		try:
 			print('[*] Aguardando mensagens. Pressione CTRL+C para sair.')
