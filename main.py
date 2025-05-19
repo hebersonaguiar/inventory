@@ -14,11 +14,11 @@ def run_app():
 	app.run(debug=True, host='0.0.0.0', port='5000')
 
 if __name__ == '__main__':
+	run_app()
 	with app.app_context():
 		try:
 			print('[*] Aguardando mensagens. Pressione CTRL+C para sair.')
 			channel.start_consuming()
-			run_app()
 		except KeyboardInterrupt:
 			print('[!] Encerrando consumidor.')
 			channel.stop_consuming()
