@@ -24,8 +24,8 @@ def get_connection(app):
 # ----------------------
 def get_rabbitmq_connection():
     credentials = pika.PlainCredentials(
-        username=os.getenv("RABBITMQ_USER"),
-        password=os.getenv("RABBITMQ_PASSWORD")
+        username=str(os.getenv("RABBITMQ_USER")),
+        password=str(os.getenv("RABBITMQ_PASSWORD"))
     )
 
     parameters = pika.ConnectionParameters(
