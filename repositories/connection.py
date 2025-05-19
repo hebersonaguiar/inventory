@@ -30,7 +30,7 @@ def get_rabbitmq_connection():
 
     parameters = pika.ConnectionParameters(
         host=os.getenv("RABBITMQ_HOST"),
-        port=os.getenv("RABBITMQ_PORT"),
+        port=int(os.getenv("RABBITMQ_PORT", 5672)),
         credentials=credentials
     )
 
