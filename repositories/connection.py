@@ -24,13 +24,13 @@ def get_connection(app):
 # ----------------------
 def get_rabbitmq_connection():
     credentials = pika.PlainCredentials(
-        username=os.getenv("RABBITMQ_USER", "guest"),
-        password=os.getenv("RABBITMQ_PASSWORD", "guest")
+        username=os.getenv("RABBITMQ_USER"),
+        password=os.getenv("RABBITMQ_PASSWORD")
     )
 
     parameters = pika.ConnectionParameters(
-        host=os.getenv("RABBITMQ_HOST", "localhost"),
-        port=int(os.getenv("RABBITMQ_PORT", 5672)),
+        host=os.getenv("RABBITMQ_HOST"),
+        port=int(os.getenv("RABBITMQ_PORT")),
         credentials=credentials
     )
 
