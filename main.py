@@ -3,7 +3,7 @@ import app
 import pika
 import os
 from consumer import process_message
-from repositories import connection 
+from repositories import connection as get_rabbitmq_connection
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -13,8 +13,8 @@ app = app.application
 def start_consumer():
 
 
-	conn = connection.get_rabbitmq_connection()
-	channel = conn.channel()
+	connection = get_rabbitmq_connection()
+	channel = connection.channel()
 	queue_name = os.getenv("RABBITMQ_QUEUE")
 
 	channel.queue_declare(queue=queue_name, durable=True)
