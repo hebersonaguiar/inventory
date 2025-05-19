@@ -38,8 +38,9 @@ def process_message(ch, method, properties, body):
         print(f"[✓] Dados do host: {hostname} inseridos.")
         ch.basic_ack(delivery_tag=method.delivery_tag)
     except Exception as e:
-        logging.error(f"Erro ao inserir no banco: {e}")
-        print(f"[✗] Erro ao processar mensagem: {e}")
+        logging.error(f"Erro ao inserir no banco: {str(e)}")
+        logging.error("Erro ao inserir no banco:\n%s", traceback.format_exc())
+        # print(f"[✗] Erro ao processar mensagem: {e}")
 
 # connection = pika.BlockingConnection(pika.ConnectionParameters('rabbitmq'))
 # channel = connection.channel()
