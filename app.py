@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 import json, datetime, os
 
 application = Flask(__name__)
-application.config("JWT_SECRET_KEY") = os.getenv("JWT_SECRET_KEY")
+application.config["JWT_SECRET_KEY"] = os.getenv("JWT_SECRET_KEY")
 api = Api(application)
 CORS(application, resources={r"/*": {"origins": "*"}})
 application.secret_key = "flash message"
