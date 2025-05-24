@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash, str
 from flask_restful import Resource, Api
 from flask_cors import CORS
 from flask_jsonpify import jsonify
-from flask_jwt_extended import JWTManager, create_access_token, create_refresh_token
+from flask_jwt_extended import JWTManager, create_access_token, create_refresh_token, jwt_required
 from repositories import connection
 from repositories.user import validate_user
 from producer import send_to_queue
