@@ -28,13 +28,13 @@ def health_check():
 def login():
     username = request.json.get("username")
     password = request.json.get("password")
+    with application.app_context():
+        if validate_user(username, password):
+            access_token = create_access_token(identity=username, expires_delta=datetime.timedelta(minutes=15))
+            refresh_token = create_refresh_token(identity=username)
 
-    if validate_user(username, password, application):
-        access_token = create_access_token(identity=username, expires_delta=datetime.timedelta(minutes=15))
-        refresh_token = create_refresh_token(identity=username)
-
-        return jsonify(access_token=access_token, refresh_token=refresh_token), 200
-    
+            return jsonify(access_token=access_token, refresh_token=refresh_token), 200
+        
     return jsonify({"msg": "Usuário ou senha inválidos"}), 401
 
 @application.route("/refresh", methods=["POST"])

@@ -1,5 +1,7 @@
 import os
 import pika
+import mysql.connector
+from flask import current_app
 from flask_mysqldb import MySQL
 from dotenv import load_dotenv
 
@@ -9,6 +11,8 @@ load_dotenv()
 # ----------------------
 # Conexão com MySQL
 # ----------------------
+
+# DEPRECATED
 def get_connection(app):
     app.config['MYSQL_HOST'] = os.getenv("DB_HOST")
     app.config['MYSQL_USER'] = os.getenv("DB_USER")
@@ -18,6 +22,15 @@ def get_connection(app):
     mysql = MySQL(app)
     
     return mysql
+
+def get_mysql_connection():
+    config = {
+        "host": current_app.config["DB_HOST"],
+        "user": current_app.config["DB_USER"],
+        "password": current_app.config["DB_PASSWORD"],
+        "database": current_app.config["DB_NAME"]
+    }
+    return mysql.connector.connect(**config)
 
 # ----------------------
 # Conexão com RabbitMQ
