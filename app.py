@@ -2,15 +2,20 @@ from flask import Flask, render_template, request, redirect, url_for, flash, str
 from flask_restful import Resource, Api
 from flask_cors import CORS
 from flask_jsonpify import jsonify
+from flask_jwt_extended import JWTManager, create_access_token, create_refresh_token
 from repositories import connection
-import json, datetime
+from repositories.user import validate_user
 from producer import send_to_queue
+from dotenv import load_dotenv
+import json, datetime, os
 
 application = Flask(__name__)
+application.config("JWT_SECRET_KEY") = os.getenv("JWT_SECRET_KEY")
 api = Api(application)
 CORS(application, resources={r"/*": {"origins": "*"}})
 application.secret_key = "flash message"
 
+jwt = JWTManager(application)
 mysql = connection.get_connection(application)
 
 ### HEALTH CHECK VERIFICATION
@@ -19,8 +24,29 @@ mysql = connection.get_connection(application)
 def health_check():
     return jsonify(status="ok"), 200
 
+@application.route("/login", methods=['POST'])
+def login():
+    username = request.json.get("username")
+    password = request.json.get("password")
+
+    if validate_user(username, password):
+        access_token = create_access_token(identity=username, expires_delta=datetime.timedelta(minutes=15))
+        refresh_token = create_refresh_token(identity=username)
+
+        return jsonify(access_token=access_token, refresh_token=refresh_token), 200
+    
+    return jsonify({"msg": "Usuário ou senha inválidos"}), 401
+
+@application.route("/refresh", methods=["POST"])
+@jwt_required(refresh=True)
+def required():
+    identity = get_jwt_identity()
+    new_access_token = create_access_token(identity=identity)
+    return jsonify(access_token=new_access_token), 200 
+
 ### GET ALL HOSTS
 @application.route('/api/v1/hosts', methods=['GET'])
+@jwt_required()
 def hosts():
     try:
         cur = mysql.connection.cursor()
@@ -91,6 +117,7 @@ def hosts():
 
 ### GET ONLY ONE HOST BY HOSTNAME
 @application.route('/api/v1/hosts/<string:servername>', methods=['GET'])
+@jwt_required()
 def getHostsByUsername(servername):
     try:
         cur = mysql.connection.cursor()
@@ -162,6 +189,7 @@ def getHostsByUsername(servername):
 
 
 @application.route('/api/v1/hosts', methods=['POST'])
+@jwt_required()
 def receive_inventory():
     hostname = str(request.json.get('hostname', None))
     ipv4 = str(request.json.get('ipv4', None))
@@ -260,6 +288,7 @@ def insert_inventory(hostname: str, ipv4: str, arch: str, processor: str, so: st
 
 ### UPDATE INVENTORY ADDITIONAL INFOS
 @application.route('/api/v1/updateiventory/<string:servername>', methods=['PUT'])
+@jwt_required()
 def update_infos(servername):
     try:
 
