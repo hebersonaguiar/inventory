@@ -29,7 +29,7 @@ def login():
     username = request.json.get("username")
     password = request.json.get("password")
 
-    if validate_user(username, password):
+    if validate_user(username, password, application):
         access_token = create_access_token(identity=username, expires_delta=datetime.timedelta(minutes=15))
         refresh_token = create_refresh_token(identity=username)
 
