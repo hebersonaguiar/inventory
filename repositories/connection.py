@@ -1,7 +1,8 @@
 import os
 import pika
-import mysql.connector
+
 from flask import current_app
+import mysql.connector
 from flask_mysqldb import MySQL
 from dotenv import load_dotenv
 
