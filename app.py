@@ -14,6 +14,8 @@ application.config["JWT_SECRET_KEY"] = os.getenv("JWT_SECRET_KEY")
 api = Api(application)
 CORS(application, resources={r"/*": {"origins": "*"}})
 application.secret_key = "flash message"
+
+# LOADING DATABASE CONNECTION VARIABLES
 application.config["DB_HOST"] = os.getenv("DB_HOST")
 application.config["DB_USER"] = os.getenv("DB_USER")
 application.config["DB_PASSWORD"] = os.getenv("DB_PASSWORD")

@@ -3,24 +3,30 @@ import json
 import logging
 import traceback
 from app import insert_inventory
+from app.infrastructure.database.mysql_inventory_repository import MySQLInventoryRepository
+from app.application.services.inventory_service import InventoryService
+
+repository = MySQLInventoryRepository()
+service = InventoryService(repository)
 
 def process_message(ch, method, properties, body):
     try:
         data = json.loads(body)
 
         hostname = data.get('hostname')
-        ipv4 = data.get('ipv4')
-        arch = data.get('arch')
-        processor = data.get('processor')
-        so = data.get('so')
-        distribution = data.get('distribution')
-        mem_total = data.get('mem_total')
-        mem_free = data.get('mem_free')
-        up_time = data.get('up_time')
-        mac_address = data.get('mac_address')
+        # ipv4 = data.get('ipv4')
+        # arch = data.get('arch')
+        # processor = data.get('processor')
+        # so = data.get('so')
+        # distribution = data.get('distribution')
+        # mem_total = data.get('mem_total')
+        # mem_free = data.get('mem_free')
+        # up_time = data.get('up_time')
+        # mac_address = data.get('mac_address')
 
-        insert_inventory(hostname, ipv4, arch, processor, so, distribution, mem_total, mem_free, up_time, mac_address)
-
+        # insert_inventory(hostname, ipv4, arch, processor, so, distribution, mem_total, mem_free, up_time, mac_address)
+        service.add_inventory(data)
+        
         print(f"[✓] Dados do host: {hostname} inseridos.")
         ch.basic_ack(delivery_tag=method.delivery_tag)
     except Exception as e:
