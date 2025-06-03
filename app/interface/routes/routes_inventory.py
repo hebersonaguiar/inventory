@@ -11,7 +11,7 @@ service = InventoryService(repository)
 def get_hostname():
     try:
         data = request.json
-        hostname = str(request.json.get('hostname', None))
+        hostname = request.json.get('hostname', None)
         print(hostname)
         service.get_hostname(hostname)
         return jsonify({'message': 'Host get successfully'}), 201
