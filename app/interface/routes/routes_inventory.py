@@ -14,7 +14,7 @@ def get_hostname():
         # print(type(data))  # Esperado: <class 'dict'>
         # hostname = data["hostname"]
         # print(hostname)
-        service.get_hostname(data)
-        return jsonify({'message': service.get_hostname(data)}), 201
+        result = service.get_hostname(data)
+        return jsonify(result), 201
     except Exception as e:
         return jsonify({'error': str(e)}), 500
