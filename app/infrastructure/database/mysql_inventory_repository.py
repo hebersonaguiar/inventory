@@ -1,6 +1,32 @@
 from app.infrastructure.database.mysql_connection import get_mysql_connection
 
 class MySQLInventoryRepository:
+    # def get_inventory(self, data: dict) -> str:
+    #     connection = get_mysql_connection()
+    #     cursor = connection.cursor()
+
+    #     try:
+    #         cursor.execute("""
+    #                 SELECT hostname 
+    #                     FROM hosts h
+    #                     WHERE h.hostname = "%s"
+    #                 """, (
+    #                     data["hostname"]
+    #                 ))
+    #         data = cursor.fetchall()
+    #         hostname = []
+    #         for result in data:
+    #             hostname = {
+    #                 result[0]
+    #             }
+    #         return hostname
+    #     except Exception as e:
+    #         connection.rollback()
+    #         raise e
+    #     finally:
+    #         cursor.close()
+    #         connection.close()
+
     def get_hostname(self, data: dict) -> str:
         connection = get_mysql_connection()
         cursor = connection.cursor()
