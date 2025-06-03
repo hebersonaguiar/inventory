@@ -5,7 +5,7 @@ class InventoryService:
         self.repository = repository
 
     def get_hostname(self, data: dict):
-        self.repository.get_hostname(data)
+        return self.repository.get_hostname(data)
 
     def up_host(self, data: dict):
         self.repository.update_host(data)
