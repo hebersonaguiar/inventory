@@ -31,7 +31,7 @@ class MySQLInventoryRepository:
         connection = get_mysql_connection()
         cursor = connection.cursor()
 
-        print(data["hostname"])
+        print("Insert: ", data["hostname"])
 
 
         try:
