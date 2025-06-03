@@ -44,6 +44,7 @@ class MySQLInventoryRepository:
                 }
             payload.append(hostname)
             hostname = {}
+            print(payload)
             return payload
         except Exception as e:
             connection.rollback()
