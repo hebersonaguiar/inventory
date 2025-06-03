@@ -41,7 +41,6 @@ class MySQLInventoryRepository:
                 hostname = {
                     result[0]
                 }
-            print("Insert: ", hostname)
             return hostname
         except Exception as e:
             connection.rollback()
