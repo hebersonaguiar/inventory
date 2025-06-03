@@ -13,7 +13,7 @@ def get_hostname():
         data = request.json
         hostname = str(request.json.get('hostname', None))
         print(hostname)
-        service.get_hostname(data)
+        service.get_hostname(hostname)
         return jsonify({'message': 'Host get successfully'}), 201
     except Exception as e:
         return jsonify({'error': str(e)}), 500
