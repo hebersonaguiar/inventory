@@ -10,10 +10,10 @@ service = InventoryService(repository)
 @inventory_bp.route('/host', methods=['GET'])
 def get_hostname():
     try:
-        data = request.json
-        hostname = request.json.get('hostname', None)
+        data = request.get_json()
+        hostname = data[hostname]
         print(hostname)
-        service.get_hostname(hostname[0])
+        service.get_hostname(hostname)
         return jsonify({'message': 'Host get successfully'}), 201
     except Exception as e:
         return jsonify({'error': str(e)}), 500
