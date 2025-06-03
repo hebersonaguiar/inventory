@@ -32,7 +32,7 @@ class MySQLInventoryRepository:
         cursor = connection.cursor()
         
         hostname = data["hostname"]
-        
+
         try:
             cursor.execute("SELECT hostname FROM hosts h WHERE h.hostname = %s", (hostname,))
             data = cursor.fetchall()
@@ -41,7 +41,7 @@ class MySQLInventoryRepository:
                 hostname = {
                     result[0]
                 }
-            print("Insert: ", data["hostname"])
+            print("Insert: ", hostname)
             return hostname
         except Exception as e:
             connection.rollback()
