@@ -32,16 +32,11 @@ class MySQLInventoryRepository:
         cursor = connection.cursor()
 
         print("Insert: ", data["hostname"])
+        hostname = data["hostname"]
 
 
         try:
-            cursor.execute("""
-                    SELECT hostname 
-                        FROM hosts h
-                        WHERE h.hostname = "%s"
-                    """, (
-                        data["hostname"]
-                    ))
+            cursor.execute("SELECT hostname FROM hosts h WHERE h.hostname = %s", (hostname))
             data = cursor.fetchall()
             hostname = []
             for result in data:
