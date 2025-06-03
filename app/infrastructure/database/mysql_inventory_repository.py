@@ -36,12 +36,15 @@ class MySQLInventoryRepository:
         try:
             cursor.execute("SELECT hostname FROM hosts h WHERE h.hostname = %s", (hostname,))
             data = cursor.fetchall()
+            payload = []
             hostname = []
             for result in data:
                 hostname = {
                     result[0]
                 }
-            return hostname
+            payload.append(hostname)
+            hostname = {}
+            return payload
         except Exception as e:
             connection.rollback()
             raise e
