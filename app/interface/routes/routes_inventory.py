@@ -11,10 +11,10 @@ service = InventoryService(repository)
 def get_hostname():
     try:
         data = request.get_json()
-        print(type(data))  # Esperado: <class 'dict'>
-        hostname = data["hostname"]
-        print(hostname)
-        service.get_hostname(data)
-        return jsonify({'message': 'Host get successfully'}), 201
+        # print(type(data))  # Esperado: <class 'dict'>
+        # hostname = data["hostname"]
+        # print(hostname)
+        hostname = service.get_hostname(data)
+        return jsonify({'message': hostname}), 201
     except Exception as e:
         return jsonify({'error': str(e)}), 500
