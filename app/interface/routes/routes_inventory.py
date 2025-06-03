@@ -11,6 +11,7 @@ service = InventoryService(repository)
 def get_hostname():
     try:
         data = request.get_json()
+        print(type(data))  # Esperado: <class 'dict'>
         hostname = data["hostname"]
         print(hostname)
         service.get_hostname(hostname)
