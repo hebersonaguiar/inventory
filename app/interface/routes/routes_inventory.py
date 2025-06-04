@@ -8,12 +8,9 @@ repository = MySQLInventoryRepository()
 service = InventoryService(repository)
 
 @inventory_bp.route('/host', methods=['GET'])
-def get_hostname():
+def get_inventory_by_hostname():
     try:
         data = request.get_json()
-        # print(type(data))  # Esperado: <class 'dict'>
-        # hostname = data["hostname"]
-        # print(hostname)
         result = service.get_hostname(data)
         return jsonify(result), 201
     except Exception as e:

@@ -27,7 +27,7 @@ class MySQLInventoryRepository:
     #         cursor.close()
     #         connection.close()
 
-    def get_hostname(self, data: dict) -> str:
+    def get_inventory_by_hostname(self, data: dict) -> str:
         connection = get_mysql_connection()
         cursor = connection.cursor()
         

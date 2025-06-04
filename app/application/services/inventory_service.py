@@ -4,8 +4,8 @@ class InventoryService:
     def __init__(self, repository: InventoryRepository):
         self.repository = repository
 
-    def get_hostname(self, data: dict):
-        return self.repository.get_hostname(data)
+    def get_inventory_by_hostname(self, data: dict):
+        return self.repository.get_inventory_by_hostname(data)
 
     def up_host(self, data: dict):
         self.repository.update_host(data)
