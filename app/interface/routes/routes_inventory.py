@@ -11,7 +11,7 @@ service = InventoryService(repository)
 def get_inventory_by_hostname():
     try:
         data = request.get_json()
-        result = service.get_hostname(data)
+        result = service.get_inventory_by_hostname(data)
         return jsonify(result), 201
     except Exception as e:
         return jsonify({'error': str(e)}), 500
