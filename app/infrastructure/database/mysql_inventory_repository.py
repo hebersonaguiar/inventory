@@ -34,7 +34,9 @@ class MySQLInventoryRepository:
         hostname = data["hostname"]
         
         try:
-            cursor.execute("SELECT h.id, h.hostname FROM hosts h WHERE h.hostname = %s", (hostname,))
+            cursor.execute("""
+                            SELECT h.id, h.hostname FROM hosts h WHERE h.hostname = %s"
+                           """, (hostname,))
             results = cursor.fetchall()
             payload = []
             content = []
