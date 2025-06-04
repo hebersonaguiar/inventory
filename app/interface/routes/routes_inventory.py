@@ -7,6 +7,10 @@ inventory_bp = Blueprint('inventory', __name__, url_prefix='/api/v1/')
 repository = MySQLInventoryRepository()
 service = InventoryService(repository)
 
+@inventory_bp.route('/health', methods=['GET'])
+def health_check():
+    return jsonify(status='ok'), 200
+
 @inventory_bp.route('/host', methods=['GET'])
 def get_inventory_by_hostname():
     try:
