@@ -68,8 +68,27 @@ class MySQLInventoryRepository:
             
             for result in results:
                 content = {
-                'id': result[0],
-                'hostname': result[1],
+                    'id': result[0],
+                    'hostname': result[1],
+                    'ipv4': result[2],
+                    'arch': result[3],
+                    'processor': result[4],
+                    'so': result[5],
+                    'distribution': result[6],
+                    'mem_total': result[7],
+                    'mem_free': result[8],
+                    'up_time': result[9],
+                    'mac_address': result[10],
+                    'created_at': result[11],
+                    'updated_at': result[12],
+                    'env': result[13],
+                    'url': result[14],
+                    'is_internal': result[15],
+                    'midleware': result[16],
+                    'app_language': result[17],
+                    'app_system': result[18],
+                    'location': result[19],
+                    'notes': result[20]  
                 }
 
                 payload.append(content)
