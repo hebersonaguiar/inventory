@@ -65,7 +65,7 @@ class MySQLInventoryRepository:
                 payload.append(content)
                 content = {}
 
-            return jsonify(payload), 200
+            return payload
         except Exception as  e:
             connection.rollback()
             raise e
