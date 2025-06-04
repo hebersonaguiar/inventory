@@ -37,10 +37,16 @@ class MySQLInventoryRepository:
             cursor.execute("SELECT h.id, h.hostname FROM hosts h WHERE h.hostname = %s", (hostname,))
             results = cursor.fetchall()
             payload = []
+            content = []
             
             for result in results:
-                payload.append({"id": result[0]})
-                payload.append({"hostname": result[1]})
+                content = {
+                'id': result[0],
+                'hostname': result[1],
+                }
+
+                payload.append(content)
+                content = {}
 
             return payload
         except Exception as e:
