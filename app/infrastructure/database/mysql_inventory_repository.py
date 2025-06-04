@@ -34,12 +34,57 @@ class MySQLInventoryRepository:
         hostname = data["hostname"]
 
         try:
-            cursor.execute("SELECT hostname FROM hosts h WHERE h.hostname = %s", (hostname,))
+            cursor.execute("""SELECT 
+                            h.id,
+                            h.hostname,
+                            h.ipv4,
+                            h.arch,
+                            h.processor,
+                            h.so,
+                            h.distribution,
+                            h.mem_total,
+                            h.mem_free,
+                            h.up_time,
+                            h.mac_address,
+                            h.created_at,
+                            h.updated_at,
+                            hi.env,
+                            hi.url,
+                            hi.is_internal,
+                            hi.midleware,
+                            hi.app_language,
+                            hi.app_system,
+                            hi.location,
+                            hi.notes
+                        FROM hosts h
+                        INNER JOIN hosts_aditional_infos hi ON h.hostname = hi.hostname
+                        WHERE h.hostname = "%s"
+                        ORDER BY h.id""", (hostname,))
             results = cursor.fetchall()
             payload = []
             
             for result in results:
-                payload.append({"hostname": result[0]})
+                payload.append({"id": result[0]})
+                payload.append({"hostname": result[1]})
+                payload.append({"ipv4": result[2]})
+                payload.append({"arch": result[3]})
+                payload.append({"processor": result[4]})
+                payload.append({"so": result[5]})
+                payload.append({"distribution": result[6]})
+                payload.append({"mem_total": result[7]})
+                payload.append({"mem_free": result[8]})
+                payload.append({"up_time": result[9]})
+                payload.append({"mac_address": result[10]})
+                payload.append({"created_at": result[11]})
+                payload.append({"updated_at": result[12]})
+                payload.append({"env": result[13]})
+                payload.append({"url": result[14]})
+                payload.append({"is_internal": result[15]})
+                payload.append({"midleware": result[16]})
+                payload.append({"app_language": result[17]})
+                payload.append({"app_system": result[18]})
+                payload.append({"location": result[19]})
+                payload.append({"notes": result[20]})
 
             return payload
         except Exception as e:
