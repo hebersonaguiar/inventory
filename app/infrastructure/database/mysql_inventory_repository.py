@@ -86,6 +86,8 @@ class MySQLInventoryRepository:
                 payload.append({"location": result[19]})
                 payload.append({"notes": result[20]})
 
+            print(payload)
+
             return payload
         except Exception as e:
             connection.rollback()
