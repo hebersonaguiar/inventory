@@ -179,9 +179,9 @@ def getHostsByUsername(servername):
                 'is_internal': result[15],
                 'midleware': result[16],
                 'app_language': result[17],
-                'app_system': result[17],
-                'location': result[18],
-                'notes': result[19],
+                'app_system': result[18],
+                'location': result[19],
+                'notes': result[20],
             }
                     
             payload.append(content)

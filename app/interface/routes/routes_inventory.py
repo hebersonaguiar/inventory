@@ -15,3 +15,11 @@ def get_inventory_by_hostname():
         return jsonify(result), 201
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+    
+@inventory_bp.route('/inventory', methods=['GET'])
+def get_inventory():
+    try:
+        result = service.get_inventory()
+        return jsonify(result), 201
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500

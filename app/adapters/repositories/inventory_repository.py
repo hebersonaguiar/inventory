@@ -4,6 +4,9 @@ class InventoryRepository(Protocol):
     def get_inventory_by_hostname(self, data: dict) -> str:
         ...
 
+    def get_inventory(self) -> str:
+        ...
+
     def update_host(self, data: dict) -> None:
         ...
 

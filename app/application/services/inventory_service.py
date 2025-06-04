@@ -7,6 +7,9 @@ class InventoryService:
     def get_inventory_by_hostname(self, data: dict):
         return self.repository.get_inventory_by_hostname(data)
 
+    def get_inventory(self):
+        return self.repository.get_inventory()
+
     def up_host(self, data: dict):
         self.repository.update_host(data)
 
