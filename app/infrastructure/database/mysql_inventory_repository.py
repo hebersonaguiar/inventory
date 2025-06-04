@@ -35,7 +35,7 @@ class MySQLInventoryRepository:
         
         try:
             cursor.execute("""
-                            SELECT h.id, h.hostname FROM hosts h WHERE h.hostname = %s"
+                            SELECT h.id, h.hostname FROM hosts h WHERE h.hostname = %s
                            """, (hostname,))
             results = cursor.fetchall()
             payload = []
