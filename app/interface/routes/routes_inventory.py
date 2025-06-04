@@ -27,3 +27,17 @@ def get_inventory():
         return jsonify(result), 201
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+
+@inventory_bp.route('/inventory', methods=['POST'])
+def receive_inventory_data():
+    try:
+        data = request.get_json()
+
+        print("Dados recebidos", data)
+
+        service.send_to_queue(data)
+
+        return jsonify({'message': 'Dados enviados para fila com sucesso'}), 202
+    except Exception as e:
+        print("Erro ao enviar para fila:", e)
+        return jsonify({'error': str(e)}), 500

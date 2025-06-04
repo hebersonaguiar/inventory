@@ -12,3 +12,6 @@ class InventoryRepository(Protocol):
 
     def insert_host(self, data: dict) -> None:
         ...
+
+    def send_to_queue(self, data: dict) -> None:
+        ...
