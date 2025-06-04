@@ -1,4 +1,5 @@
 from app.infrastructure.database.mysql_connection import get_mysql_connection
+import datetime
 
 class MySQLInventoryRepository:
 
@@ -188,41 +189,102 @@ class MySQLInventoryRepository:
             connection.close()
 
 
-    def insert_host(self, data: dict) -> None:
+    def insert_inventory(self, data: dict) -> None:
         connection = get_mysql_connection()
         cursor = connection.cursor()
 
-        try:
-            cursor.execute("""
-                INSERT INTO hosts (
-                    hostname, 
-                    ipv4, 
-                    arch,
-                    processor, 
-                    so,
-                    distribution, 
-                    mem_total, 
-                    mem_free,
-                    up_time, 
-                    mac_address,
-                    created_at
-                ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-            """, (
-                data["hostname"],
-                data["ipv4"],
-                data["arch"],
-                data["processor"],
-                data["so"],
-                data["distribution"],
-                data["mem_total"],
-                data["mem_free"],
-                data["up_time"],
-                data["mac_address"],
-                data["created_at"]
-            ))
+        hostname = data["hostname"]
 
-            connection.commit()
+        try:
+            now = datetime.datetime.now()
+            created_updated_at = now.strftime("%d-%m-%Y %H:%M")
+
+            cursor.execute("""SELECT hostname 
+                            FROM hosts h
+                            WHERE h.hostname = %s
+                    """, (hostname), )
+            results = cursor.fetchall()
+
+            content = []
+
+            for result in results:
+                content = {
+                    result[0]
+                }
+
+            print(content)
+
+            if hostname in content:
+                print("Atualizando: ", hostname)
+                cursor.execute("""
+                                UPDATE hosts
+                                    SET ipv4 = '%s', 
+                                    arch = '%s', 
+                                    processor = '%s', 
+                                    so = '%s', 
+                                    distribution = '%s', 
+                                    mem_total = '%s', 
+                                    mem_free = '%s', 
+                                    up_time = '%s', 
+                                    mac_address = '%s',
+                                    updated_at = '%s' 
+                                    WHERE hostname = '%s'
+                                """, (
+                                    data["ipv4"], 
+                                    data["arch"], 
+                                    data["processor"], 
+                                    data["so"], 
+                                    data["distribution"], 
+                                    data["mem_total"], 
+                                    data["mem_free"], 
+                                    data["up_time"], 
+                                    data["mac_address"], 
+                                    created_updated_at, 
+                                    hostname
+                                ),)
+                connection.commit()
+            else:
+                print("Adicionando: ", hostname)
+
+                cursor.execute("""
+                                INSERT INTO hosts_aditional_infos (
+                                hostname
+                                ) VALUES (%s)
+                                """, (
+                                    hostname
+                            ))
+
+                cursor.execute("""
+                                INSERT INTO hosts (
+                                    hostname, 
+                                    ipv4, 
+                                    arch,
+                                    processor, 
+                                    so,
+                                    distribution, 
+                                    mem_total, 
+                                    mem_free,
+                                    up_time, 
+                                    mac_address,
+                                    created_at
+                                ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                            """, (
+                                hostname,
+                                data["ipv4"],
+                                data["arch"],
+                                data["processor"],
+                                data["so"],
+                                data["distribution"],
+                                data["mem_total"],
+                                data["mem_free"],
+                                data["up_time"],
+                                data["mac_address"],
+                                data["created_at"]
+                            ),)
+
+                connection.commit()
         except Exception as e:
+            print("error ao inserir host")
             connection.rollback()
             raise e
         finally:

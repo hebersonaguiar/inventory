@@ -13,8 +13,8 @@ class InventoryService:
     def up_host(self, data: dict):
         self.repository.update_host(data)
 
-    def add_host(self, data: dict):
-        self.repository.insert_host(data)
+    def insert_inventory(self, data: dict):
+        self.repository.insert_inventory(data)
 
     def send_to_queue(self, data: dict):
         self.repository.send_to_queue(data)

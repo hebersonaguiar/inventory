@@ -10,7 +10,7 @@ class InventoryRepository(Protocol):
     def update_host(self, data: dict) -> None:
         ...
 
-    def insert_host(self, data: dict) -> None:
+    def insert_inventory(self, data: dict) -> None:
         ...
 
     def send_to_queue(self, data: dict) -> None:
