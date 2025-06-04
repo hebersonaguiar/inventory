@@ -61,6 +61,7 @@ class MySQLInventoryRepository:
                         WHERE h.hostname = "%s"
                         ORDER BY h.id""", (hostname,))
             results = cursor.fetchall()
+            print(results)
             payload = []
             
             for result in results:
