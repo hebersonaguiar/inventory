@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify # type: ignore
 from app.application.services.inventory_service import InventoryService
 from app.infrastructure.database.mysql_inventory_repository import MySQLInventoryRepository
 from app.infrastructure.messaging.rabbitmq_producer_repository import RabbitMQInventoryRepository

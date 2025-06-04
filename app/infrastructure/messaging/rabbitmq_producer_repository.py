@@ -1,7 +1,7 @@
 from app.infrastructure.messaging.rabbitmq_connection import get_rabbitmq_connection
 import json
 import os
-import pika
+import pika # type: ignore
 
 class RabbitMQInventoryRepository:
 

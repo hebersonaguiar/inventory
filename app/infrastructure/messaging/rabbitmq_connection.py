@@ -1,4 +1,4 @@
-import pika
+import pika # type: ignore
 from app.config.settings import settings
 
 def get_rabbitmq_connection():

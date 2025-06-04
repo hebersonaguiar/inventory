@@ -1,6 +1,6 @@
 import json
 import logging
-import pika
+import pika # type: ignore
 from app.application.services.inventory_service import InventoryService
 from app.infrastructure.messaging.rabbitmq_connection import get_rabbitmq_connection
 import os
