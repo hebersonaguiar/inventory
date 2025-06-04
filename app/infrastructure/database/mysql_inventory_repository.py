@@ -35,7 +35,32 @@ class MySQLInventoryRepository:
         
         try:
             cursor.execute("""
-                            SELECT h.id, h.hostname FROM hosts h WHERE h.hostname = %s
+                            SELECT 
+                                h.id, 
+                                h.hostname,
+                                h.ipv4,
+                                h.arch,
+                                h.processor,
+                                h.so,
+                                h.distribution,
+                                h.mem_total,
+                                h.mem_free,
+                                h.up_time,
+                                h.mac_address,
+                                h.created_at,
+                                h.updated_at,
+                                hi.env,
+                                hi.url,
+                                hi.is_internal,
+                                hi.midleware,
+                                hi.app_language,
+                                hi.app_system,
+                                hi.location,
+                                hi.notes
+                            FROM hosts h
+                            INNER JOIN hosts_aditional_infos hi ON h.hostname = hi.hostname
+                            WHERE h.hostname = %s
+                            ORDER BY h.id
                            """, (hostname,))
             results = cursor.fetchall()
             payload = []
