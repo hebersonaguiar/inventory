@@ -204,7 +204,7 @@ class MySQLInventoryRepository:
             cursor.execute("""SELECT hostname 
                             FROM hosts h
                             WHERE h.hostname = %s
-                    """, (hostname), )
+                    """, (hostname,) )
             results = cursor.fetchall()
 
             content = []
@@ -243,7 +243,7 @@ class MySQLInventoryRepository:
                                     data["mac_address"], 
                                     created_updated_at, 
                                     hostname
-                                ),)
+                                ))
                 connection.commit()
             else:
                 print("Adicionando: ", hostname)
@@ -282,7 +282,7 @@ class MySQLInventoryRepository:
                                 data["up_time"],
                                 data["mac_address"],
                                 data["created_at"]
-                            ),)
+                            ))
 
                 connection.commit()
         except Exception as e:
