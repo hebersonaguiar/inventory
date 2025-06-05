@@ -13,7 +13,12 @@ def process_message(ch, method, properties, body):
     try:
         data = json.loads(body)
 
+        hostname = data.get('hostname')
+
         print("Mensagem recebida da fila: ", data)
+
+
+        print("Hostname: ", hostname)
 
         service.insert_inventory(data)
 
