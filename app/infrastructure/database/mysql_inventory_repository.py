@@ -194,6 +194,7 @@ class MySQLInventoryRepository:
         cursor = connection.cursor()
 
         hostname = data["hostname"]
+        print("Testing Insert: ", data["hostname"])
 
         try:
             now = datetime.datetime.now()
@@ -252,9 +253,7 @@ class MySQLInventoryRepository:
                                 INSERT INTO hosts_aditional_infos (
                                 hostname
                                 ) VALUES (%s)
-                                """, (
-                                    hostname,
-                            ))
+                                """, (hostname,))
 
                 cursor.execute("""
                                 INSERT INTO hosts (
