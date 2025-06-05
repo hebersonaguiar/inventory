@@ -1,6 +1,6 @@
-from messaging.rabbitmq_consumer_repository import process_message
-from app.infrastructure.messaging.rabbitmq_connection import get_rabbitmq_connection
 import os
+from app.infrastructure.messaging.rabbitmq_consumer_repository import process_message
+from app.infrastructure.messaging.rabbitmq_connection import get_rabbitmq_connection
 
 def start_consumer(self):
     connection = get_rabbitmq_connection()
