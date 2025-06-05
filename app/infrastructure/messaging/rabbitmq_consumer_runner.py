@@ -2,7 +2,7 @@ import os
 from app.infrastructure.messaging.rabbitmq_consumer_repository import process_message
 from app.infrastructure.messaging.rabbitmq_connection import get_rabbitmq_connection
 
-def start_consumer(self):
+def start_consumer():
     connection = get_rabbitmq_connection()
     channel = connection.channel()
     queue_name = os.getenv("RABBITMQ_QUEUE", "infrasa_inventory_queue")
