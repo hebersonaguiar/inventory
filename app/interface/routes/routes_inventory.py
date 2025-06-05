@@ -36,8 +36,6 @@ def receive_inventory_data():
     try:
         data = request.get_json()
 
-        # print("Dados recebidos", data)
-
         serviceQueue.send_to_queue(data)
 
         return jsonify({'message': 'Dados enviados para fila com sucesso'}), 202
