@@ -253,7 +253,7 @@ class MySQLInventoryRepository:
                                 hostname
                                 ) VALUES (%s)
                                 """, (
-                                    hostname
+                                    hostname,
                             ))
 
                 cursor.execute("""
