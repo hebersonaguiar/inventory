@@ -12,17 +12,11 @@ service = InventoryService(repository)
 def process_message(ch, method, properties, body):
     try:
         data = json.loads(body)
-
-        hostname = data.get('hostname')
-
-        print("Mensagem recebida da fila: ", data)
-
-
-        print("Hostname: ", hostname)
-
+        
+        # print("Mensagem recebida da fila: ", data)
         service.insert_inventory(data)
 
-        print("Dados inseridos no banco de dados com sucesso.")
+        # print("Dados inseridos no banco de dados com sucesso.")
         ch.basic_ack(delivery_tag=method.delivery_tag)
     
     except Exception as e:

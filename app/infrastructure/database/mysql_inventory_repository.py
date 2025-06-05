@@ -194,13 +194,10 @@ class MySQLInventoryRepository:
         cursor = connection.cursor()
 
         hostname = data["hostname"]
-        print("Testing Insert: ", data["hostname"])
 
         try:
             now = datetime.datetime.now()
             created_updated_at = now.strftime("%d-%m-%Y %H:%M")
-
-            print("Testing Insert: ", data["hostname"], " in: ", created_updated_at)
 
             cursor.execute("""SELECT hostname 
                             FROM hosts h
@@ -210,10 +207,7 @@ class MySQLInventoryRepository:
 
             content = [result[0] for result in results]
 
-            print("Content", content)
-
             if hostname in content:
-                print("Atualizando: ", hostname)
                 cursor.execute("""
                                 UPDATE hosts
                                     SET ipv4 = %s, 
@@ -242,8 +236,6 @@ class MySQLInventoryRepository:
                                 ))
                 connection.commit()
             else:
-                print("Adicionando: ", hostname)
-
                 cursor.execute("""
                                 INSERT INTO hosts_aditional_infos (
                                 hostname
@@ -280,7 +272,7 @@ class MySQLInventoryRepository:
 
                 connection.commit()
         except Exception as e:
-            print("error ao inserir host")
+            print("Error ao inserir host")
             connection.rollback()
             raise e
         finally:
