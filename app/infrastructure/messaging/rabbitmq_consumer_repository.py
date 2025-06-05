@@ -11,7 +11,7 @@ service = InventoryService(repository)
 
 def process_message(ch, method, properties, body):
     try:
-        data = json.load(body)
+        data = json.loads(body)
 
         print("Mensagem recebida da fila: ", data)
 
