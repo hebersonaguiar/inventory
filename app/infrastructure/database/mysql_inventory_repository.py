@@ -208,12 +208,7 @@ class MySQLInventoryRepository:
                     """, (hostname,) )
             results = cursor.fetchall()
 
-            content = []
-
-            for result in results:
-                content = {
-                    result[0]
-                }
+            content = [result[0] for result in results]
 
             print(content)
 
