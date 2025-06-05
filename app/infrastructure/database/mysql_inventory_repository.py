@@ -220,17 +220,17 @@ class MySQLInventoryRepository:
                 print("Atualizando: ", hostname)
                 cursor.execute("""
                                 UPDATE hosts
-                                    SET ipv4 = '%s', 
-                                    arch = '%s', 
-                                    processor = '%s', 
-                                    so = '%s', 
-                                    distribution = '%s', 
-                                    mem_total = '%s', 
-                                    mem_free = '%s', 
-                                    up_time = '%s', 
-                                    mac_address = '%s',
-                                    updated_at = '%s' 
-                                    WHERE hostname = '%s'
+                                    SET ipv4 = %s, 
+                                    arch = %s, 
+                                    processor = %s, 
+                                    so = %s, 
+                                    distribution = %s, 
+                                    mem_total = %s, 
+                                    mem_free = %s, 
+                                    up_time = %s, 
+                                    mac_address = %s,
+                                    updated_at = %s 
+                                    WHERE hostname = %s
                                 """, (
                                     data["ipv4"], 
                                     data["arch"], 
