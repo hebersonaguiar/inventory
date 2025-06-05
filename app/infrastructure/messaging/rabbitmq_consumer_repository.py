@@ -2,10 +2,12 @@ import json
 import logging
 import pika # type: ignore
 from app.application.services.inventory_service import InventoryService
+from app.infrastructure.database.mysql_inventory_repository import MySQLInventoryRepository
 from app.infrastructure.messaging.rabbitmq_connection import get_rabbitmq_connection
 import os
 
-service = InventoryService()
+repository = MySQLInventoryRepository()
+service = InventoryService(repository)
 
 def process_message(ch, method, properties, body):
     try:
