@@ -199,6 +199,8 @@ class MySQLInventoryRepository:
             now = datetime.datetime.now()
             created_updated_at = now.strftime("%d-%m-%Y %H:%M")
 
+            print("Testing Insert: ", data["hostname"], " in: ", created_updated_at)
+
             cursor.execute("""SELECT hostname 
                             FROM hosts h
                             WHERE h.hostname = %s
