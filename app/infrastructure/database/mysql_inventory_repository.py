@@ -210,7 +210,7 @@ class MySQLInventoryRepository:
 
             content = [result[0] for result in results]
 
-            print(content)
+            print("Content", content)
 
             if hostname in content:
                 print("Atualizando: ", hostname)
