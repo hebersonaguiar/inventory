@@ -5,7 +5,7 @@ def start_consumer(callback_funtion):
     connection = get_rabbitmq_connection()
     channel = connection.channel()
 
-    channel.queue_declare(queue=settings.RABBITMQ_QUEUE, durable=true)
+    channel.queue_declare(queue=settings.RABBITMQ_QUEUE, durable=True)
     channel.basic_qos(prefetch_count=1)
     channel.basic_consume(queue=settings.RABBITMQ_QUEUE, on_message_callback=callback_funtion)
 
