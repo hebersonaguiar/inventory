@@ -1,5 +1,6 @@
 ## Inventory
 
+```
 ## Structure
 inventory/
 ├── app/
@@ -41,3 +42,4 @@ inventory/
 ├── .env
 ├── requirements.txt
 └── README.md
+```
