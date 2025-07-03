@@ -10,9 +10,9 @@ services:
       - "5001:5000"
     env_file:
       - .env
-    depends_on:
-      - db
-      - messaging
+    # depends_on:
+    #   - db
+    #   - messaging
     # volumes:
     #   - .:/usr/src/app
     restart: always
