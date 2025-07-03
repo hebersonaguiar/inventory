@@ -13,8 +13,8 @@ services:
     # depends_on:
     #   - db
     #   - messaging
-    # volumes:
-    #   - .:/usr/src/app
+    volumes:
+      - .:/usr/src/app
     restart: always
 
 #   db:
