@@ -13,36 +13,36 @@ services:
     depends_on:
       - db
       - messaging
-    volumes:
-      - .:/usr/src/app
+    # volumes:
+    #   - .:/usr/src/app
     restart: always
 
-  db:
-    image: mysql:8.0
-    container_name: mysql
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: change-me
-      MYSQL_DATABASE: change-me
-      MYSQL_USER: change-me
-      MYSQL_PASSWORD: change-me
-    ports:
-      - "3306:3306"
-    volumes:
-      - db_data:/var/lib/mysql
+#   db:
+#     image: mysql:8.0
+#     container_name: mysql
+#     restart: always
+#     environment:
+#       MYSQL_ROOT_PASSWORD: change-me
+#       MYSQL_DATABASE: change-me
+#       MYSQL_USER: change-me
+#       MYSQL_PASSWORD: change-me
+#     ports:
+#       - "3306:3306"
+#     volumes:
+#       - db_data:/var/lib/mysql
 
-  messaging:
-    image: rabbitmq:3-management
-    container_name: messaging
-    ports:
-      - "5672:5672"     # Porta AMQP
-      - "15672:15672"   # Interface web de gerenciamento
-    environment:
-      RABBITMQ_DEFAULT_USER: change-me
-      RABBITMQ_DEFAULT_PASS: change-me
-    volumes:
-      - messaging_data:/var/lib/rabbitmq
+#   messaging:
+#     image: rabbitmq:3-management
+#     container_name: messaging
+#     ports:
+#       - "5672:5672"     # Porta AMQP
+#       - "15672:15672"   # Interface web de gerenciamento
+#     environment:
+#       RABBITMQ_DEFAULT_USER: change-me
+#       RABBITMQ_DEFAULT_PASS: change-me
+#     volumes:
+#       - messaging_data:/var/lib/rabbitmq
 
-volumes:
-  db_data:
-  messaging_data:
+# volumes:
+#   db_data:
+#   messaging_data:
