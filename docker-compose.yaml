@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
     container_name: inventory-api
     ports:
-      - "5000:5000"
+      - "5001:5000"
     env_file:
       - .env
     depends_on:
