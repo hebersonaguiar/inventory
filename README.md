@@ -1,7 +1,7 @@
 ## Inventory
 
+### Structure
 ```
-## Structure
 inventory/
 ├── app/
 │   ├── __init__.py
